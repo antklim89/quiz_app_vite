@@ -1,18 +1,31 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <div>
+      <router-link to="/question/1">
+        <button>Start Quiz</button>
+      </router-link>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import HelloWorld from '@/components/HelloWorld.vue' // @ is an alias to /src
 
 export default defineComponent({
-  name: 'Home',
-  components: {
-    HelloWorld
-  }
+    name: 'QuestionList'
 })
 </script>
+
+<style lang="scss" scoped>
+div {
+    text-align: center;
+}
+button {
+    font-size: 50px;
+    border: none;
+    border-radius: 0.5rem;
+    background: var(--primary-color);
+    color: var(--light-color);
+    padding: var(--space-2);
+    cursor: pointer;
+    margin: 5rem 0;
+}
+</style>

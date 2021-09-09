@@ -1,0 +1,28 @@
+*, *:after, *:before {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --primary-color: #020646;
+    --secondary-color: #533680;
+    --light-color: #ddd;
+    --dark-color: #111;
+
+    --space-1: .2rem;
+    --space-2: .7rem;
+    --space-3: 1rem;
+    --space-4: 2rem;
+    --space-5: 4rem;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: var(--space-2);
+}
