@@ -41,6 +41,12 @@
             </router-link>
         </div>
     </div>
+    <div v-else class="no-question">
+        <h1>Question not found</h1>
+        <router-link class="button" :to="{name: 'Home'}">
+            Go Home
+        </router-link>
+    </div>
 </template>
 
 
@@ -100,7 +106,7 @@ export default defineComponent({
     .answer {
         flex: 1 1 calc(50% - var(--space-2) * 2);
         margin: var(--space-2);
-        border: 1px solid var(--secondary-color);
+        border: 1px solid var(--primary-color);
 
         &__list {
             display: flex;
@@ -122,7 +128,7 @@ export default defineComponent({
         }
 
         &__input.checked + &__label  {
-            outline: 5px solid var(--secondary-color);
+            outline: 5px solid var(--primary-color);
             outline-offset: -5px;
         }
     }
@@ -132,13 +138,10 @@ export default defineComponent({
         .grow {
             flex-grow: 1;
         }
-
-        .button {
-            background: var(--secondary-color);
-            border: none;
-            padding: var(--space-3) var(--space-5);
-            margin: var(--space-3) auto;
-            color: var(--light-color);
-        }
+    }
+    .no-question {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 </style>
