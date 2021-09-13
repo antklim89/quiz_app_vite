@@ -6,13 +6,14 @@
   </div>
 </template>
 
+
 <script lang="ts">
 import { defineComponent } from 'vue'
 
-export default defineComponent({
-    name: 'QuestionList'
-})
+
+export default defineComponent({ name: 'Home' })
 </script>
+
 
 <style lang="scss" scoped>
 div {
@@ -27,5 +28,6 @@ button {
     padding: var(--space-2);
     cursor: pointer;
     margin: 5rem 0;
+    text-decoration: none;
 }
 </style>
