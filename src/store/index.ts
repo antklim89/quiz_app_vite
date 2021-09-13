@@ -35,13 +35,18 @@ export const store = createStore<State>({
         hasPrevQuestion({ questionNumber }) {
             return questionNumber > 1
         },
-        hasSelectedAnswer(state, getters) {
+        hasSelectedAnswer(state, getters: Store['getters']) {
             const question = getters.currentQuestion
             if (!question?.answers) return false
             return Object.values(question.selectedAnswers).some((answer) => answer)
         },
-        filtredAnswers(state, getters) {
-            return Object.entries(getters.currentQuestion.answers)
+        allQuestionsAnswered(state) {
+            return state.questions.every((question) => {
+                return Object.values(question.selectedAnswers).some((answer) => answer)
+            })
+        },
+        filtredAnswers(state, getters: Store['getters']) {
+            return Object.entries(getters.currentQuestion?.answers || {})
                 .filter((answer) => answer[1]) as [AnswerLetters, string][]
         },
         results(state) {
@@ -72,6 +77,15 @@ export const store = createStore<State>({
                 }
             })
         },
+        allQuestionsAnsweredCorrect(state, getters: Store['getters']) {
+            return getters.results.every((result) => result.isCorrect)
+        },
+        numberCorrectAnsweres(state, getters: Store['getters']) {
+            return getters.results.filter((result) => result.isCorrect).length
+        },
+        numberWrongAnsweres(state, getters: Store['getters']) {
+            return getters.results.filter((result) => !result.isCorrect).length
+        },
     },
 })
 
@@ -97,10 +111,14 @@ interface Store extends Omit<BaseStore<State>, 'getters'> {
         currentQuestion: IQuestion | null
         hasQuestions: boolean
         hasSelectedAnswer: boolean
+        allQuestionsAnswered: boolean
         hasNextQuestion: boolean
         hasPrevQuestion: boolean
         filtredAnswers:[AnswerLetters, string][]
         results: Result[]
+        allQuestionsAnsweredCorrect: boolean
+        numberCorrectAnsweres: boolean
+        numberWrongAnsweres: boolean
     }
 }
 

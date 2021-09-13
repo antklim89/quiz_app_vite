@@ -37,6 +37,9 @@ button {
 }
 
 .title {
+    color: var(--primary-color);
+    font-size: 2rem;
+    text-transform: uppercase;
     text-align: center;
-    margin: var(--space-5) 0;
+    margin: var(--space-4) 0;
 }
