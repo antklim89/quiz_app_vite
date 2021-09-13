@@ -1,6 +1,6 @@
 import { createStore, useStore as baseUseStore, Store as BaseStore } from 'vuex'
 
-import { IQuestion, AnswersVariants } from '@/types'
+import { IQuestion, AnswersVariants, SelectedAnswersVariants } from '@/types'
 
 
 export const store = createStore<State>({
@@ -51,7 +51,33 @@ export const store = createStore<State>({
         },
         filtredAnswers(state, getters) {
             return Object.entries(getters.currentQuestion.answers)
-                .filter((answ) => answ[1]) as [AnswersVariants, string][]
+                .filter((answer) => answer[1]) as [AnswersVariants, string][]
+        },
+        results(state) {
+            return state.questions.map((question) => {
+                // const corectAnswers = Object.entries(question.correct_answers)
+                //     .filter(([, isCorect]) => isCorect)
+                //     .map(([name]) => name.replace(/_correct$/i, ''))
+
+                // const selectedAnswers = Object.entries(question.selected_answers)
+                //     .filter(([, isSelected]) => isSelected)
+                //     .map(([name]) => name)
+
+                const isCorrect = Object.entries(question.correct_answers).every(([key, isCorrect]) => {
+                    const answerName = key.replace(/_correct$/i, '') as SelectedAnswersVariants
+                    const selectedAnswer = question.selected_answers[answerName]
+                    return selectedAnswer === isCorrect
+                })
+
+                return {
+                    id: question.id,
+                    question: question.question,
+                    explanation: question.explanation,
+                    category: question.category,
+                    difficulty: question.difficulty,
+                    isCorrect,
+                }
+            })
         },
     },
 })
@@ -62,6 +88,15 @@ interface State {
     questionNumber: number
 }
 
+interface Result {
+    id: 1
+    question: string
+    explanation: string
+    category: string
+    difficulty: string
+    isCorrect: boolean
+}
+
 interface Store extends Omit<BaseStore<State>, 'getters'> {
     getters: {
         currentQuestion: IQuestion | null
@@ -70,6 +105,7 @@ interface Store extends Omit<BaseStore<State>, 'getters'> {
         hasNextQuestion: boolean
         hasPrevQuestion: boolean
         filtredAnswers:[AnswersVariants, string][]
+        results: Result[]
     }
 }
 

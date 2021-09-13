@@ -28,7 +28,7 @@
   },
   {
     "id": 2,
-    "question": "TEST",
+    "question": "TEST. answer_a_correct and answer_d_correct",
     "description": "description",
     "answers": {
       "answer_a": "1",
@@ -38,9 +38,9 @@
       "answer_e": "5",
       "answer_f": "6"
     },
-    "multiple_correct_answers": false,
+    "multiple_correct_answers": true,
     "correct_answers": {
-      "answer_a_correct": false,
+      "answer_a_correct": true,
       "answer_b_correct": false,
       "answer_c_correct": false,
       "answer_d_correct": true,
