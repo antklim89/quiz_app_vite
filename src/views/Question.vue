@@ -1,6 +1,6 @@
 <template>
     <div class="container" v-if="store.getters.currentQuestion">
-        <h1>Question N {{ $route.params.id }}</h1>
+        <h1 class="title">Question N {{ $route.params.id }}</h1>
         <div>
             <h2 class="question">{{ store.getters.currentQuestion.question }}</h2>
             <div class="answer__list">
@@ -110,10 +110,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-    h1 {
-        text-align: center;
-        margin: var(--space-5) 0;
-    }
     .question {
         margin-bottom: var(--space-2);
     }
