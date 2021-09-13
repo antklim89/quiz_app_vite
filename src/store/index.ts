@@ -82,12 +82,14 @@ interface State {
 }
 
 interface Result {
-    id: 1
-    question: string
-    explanation: string
-    category: string
-    difficulty: string
-    isCorrect: boolean
+    id: number;
+    question: string;
+    explanation: string;
+    category: string;
+    difficulty: string;
+    isCorrect: boolean;
+    correctAnswers: string[];
+    selectedAnswer: string[];
 }
 
 interface Store extends Omit<BaseStore<State>, 'getters'> {
@@ -102,6 +104,4 @@ interface Store extends Omit<BaseStore<State>, 'getters'> {
     }
 }
 
-export function useStore(): Store {
-    return baseUseStore()
-}
+export const useStore = (): Store => baseUseStore()
