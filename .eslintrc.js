@@ -47,7 +47,7 @@ module.exports = {
         'max-statements': ['error', 20, { ignoreTopLevelFunctions: true }],
         'no-extra-parens': 0,
         'prefer-named-capture-group': 0,
-        'id-length': [2, { exceptions: ['e', '_'] }],
+        'id-length': 0,
         'no-ternary': 0,
         'curly': 0,
         'init-declarations': 0,

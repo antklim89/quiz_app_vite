@@ -1,6 +1,7 @@
 import { createStore, useStore as baseUseStore, Store as BaseStore } from 'vuex'
 
-import { IQuestion, AnswersVariants, SelectedAnswersVariants } from '@/types'
+import { IQuestion, AnswerLetters } from '@/types'
+import { transformQuestions } from '@/utils'
 
 
 export const store = createStore<State>({
@@ -13,17 +14,7 @@ export const store = createStore<State>({
             const res = await fetch('/questions.json')
             const data = await res.json()
 
-            context.state.questions = data.map((question: IQuestion) => ({
-                ...question,
-                selected_answers: {
-                    answer_a: false,
-                    answer_b: false,
-                    answer_c: false,
-                    answer_d: false,
-                    answer_e: false,
-                    answer_f: false,
-                },
-            }))
+            context.state.questions = transformQuestions(data)
         },
     },
     mutations: {
@@ -47,27 +38,27 @@ export const store = createStore<State>({
         hasSelectedAnswer(state, getters) {
             const question = getters.currentQuestion
             if (!question?.answers) return false
-            return Object.values(question.selected_answers).some((answer) => answer)
+            return Object.values(question.selectedAnswers).some((answer) => answer)
         },
         filtredAnswers(state, getters) {
             return Object.entries(getters.currentQuestion.answers)
-                .filter((answer) => answer[1]) as [AnswersVariants, string][]
+                .filter((answer) => answer[1]) as [AnswerLetters, string][]
         },
         results(state) {
             return state.questions.map((question) => {
-                // const corectAnswers = Object.entries(question.correct_answers)
-                //     .filter(([, isCorect]) => isCorect)
-                //     .map(([name]) => name.replace(/_correct$/i, ''))
-
-                // const selectedAnswers = Object.entries(question.selected_answers)
-                //     .filter(([, isSelected]) => isSelected)
-                //     .map(([name]) => name)
-
-                const isCorrect = Object.entries(question.correct_answers).every(([key, isCorrect]) => {
-                    const answerName = key.replace(/_correct$/i, '') as SelectedAnswersVariants
-                    const selectedAnswer = question.selected_answers[answerName]
+                const isCorrect = Object.entries(question.correctAnswers).every(([key, isCorrect]) => {
+                    const answerName = key as AnswerLetters
+                    const selectedAnswer = question.selectedAnswers[answerName]
                     return selectedAnswer === isCorrect
                 })
+
+                const correctAnswers = Object.entries(question.correctAnswers)
+                    .filter(([, isCorrect]) => isCorrect)
+                    .map(([key]) => question.answers[key as AnswerLetters])
+
+                const selectedAnswer = Object.entries(question.selectedAnswers)
+                    .filter(([, isSelected]) => isSelected)
+                    .map(([key]) => question.answers[key as AnswerLetters])
 
                 return {
                     id: question.id,
@@ -76,6 +67,8 @@ export const store = createStore<State>({
                     category: question.category,
                     difficulty: question.difficulty,
                     isCorrect,
+                    correctAnswers,
+                    selectedAnswer,
                 }
             })
         },
@@ -104,7 +97,7 @@ interface Store extends Omit<BaseStore<State>, 'getters'> {
         hasSelectedAnswer: boolean
         hasNextQuestion: boolean
         hasPrevQuestion: boolean
-        filtredAnswers:[AnswersVariants, string][]
+        filtredAnswers:[AnswerLetters, string][]
         results: Result[]
     }
 }

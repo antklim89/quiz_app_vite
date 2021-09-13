@@ -1,5 +1,5 @@
-export interface IQuestion {
-    id: 1
+export interface QuestionResponse {
+    id: number
     question: string
     description: string
     answers: {
@@ -19,14 +19,6 @@ export interface IQuestion {
       answer_e_correct: boolean
       answer_f_correct: boolean
     }
-    selected_answers: {
-      answer_a: boolean
-      answer_b: boolean
-      answer_c: boolean
-      answer_d: boolean
-      answer_e: boolean
-      answer_f: boolean
-    }
     explanation: string
     tip: string|null
     tags: string[]
@@ -34,6 +26,19 @@ export interface IQuestion {
     difficulty: string
 }
 
-export type AnswersVariants = keyof IQuestion['answers']
-export type CorrectAnswersVariants = keyof IQuestion['correct_answers']
-export type SelectedAnswersVariants = keyof IQuestion['selected_answers']
+export type AnswerLetters = 'a'|'b'|'c'|'d'|'e'|'f'
+
+export interface IQuestion {
+  id: number
+  question: string
+  description: string
+  answers: Record<AnswerLetters, string>
+  multipleCorrectAnswers: boolean
+  correctAnswers: Record<AnswerLetters, boolean>
+  selectedAnswers: Record<AnswerLetters, boolean>
+  explanation: string
+  tip: string|null
+  tags: string[]
+  category: string
+  difficulty: string
+}

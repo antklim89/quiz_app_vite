@@ -17,7 +17,7 @@
                         :name="name"
                         :id="name"
                         @input="handleChange"
-                        :class="{checked: store.getters.currentQuestion.selected_answers[name]}"
+                        :class="{checked: store.getters.currentQuestion.selectedAnswers[name]}"
                     >
                     <label class="answer__label" :for="name">{{ answer }}</label>
                 </div>
@@ -69,7 +69,7 @@ import { defineComponent, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
 import { useStore } from '@/store'
-import { AnswersVariants, SelectedAnswersVariants } from '@/types'
+import { AnswerLetters } from '@/types'
 
 
 export default defineComponent({
@@ -87,18 +87,18 @@ export default defineComponent({
             const question = store.getters.currentQuestion
 
             if (!question) return
-            const selectedAnswerName = e.target.name as AnswersVariants
+            const selectedAnswerName = e.target.name as AnswerLetters
             const { checked } = e.target
 
-            if (question.multiple_correct_answers) {
-                question.selected_answers[selectedAnswerName] = checked
+            if (question.multipleCorrectAnswers) {
+                question.selectedAnswers[selectedAnswerName] = checked
             } else {
-                Object.keys(question.selected_answers).forEach((key) => {
-                    const answerKey = key as SelectedAnswersVariants
+                Object.keys(question.selectedAnswers).forEach((key) => {
+                    const answerKey = key as AnswerLetters
                     if (answerKey === selectedAnswerName) {
-                        question.selected_answers[answerKey] = true
+                        question.selectedAnswers[answerKey] = true
                     } else {
-                        question.selected_answers[answerKey] = false
+                        question.selectedAnswers[answerKey] = false
                     }
                 })
             }
