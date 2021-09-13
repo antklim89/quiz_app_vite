@@ -1,6 +1,6 @@
 <template>
   <div>
-      <router-link to="/question/1">
+      <router-link :to="{name: 'Question', params: { id: 1 }}">
         <button>Start Quiz</button>
       </router-link>
   </div>

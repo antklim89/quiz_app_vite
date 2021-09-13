@@ -13,17 +13,16 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/about',
         name: 'About',
-        component: () => import('../views/About.vue'),
+        component: () => import('@/views/About.vue'),
     },
     {
         path: '/question/:id',
         name: 'Question',
-        component: () => import('../views/Question.vue'),
+        component: () => import('@/views/Question.vue'),
     },
 ]
 
 const router = createRouter({
-    // eslint-disable-next-line no-process-env
     history: createWebHistory(process.env.BASE_URL),
     routes,
 })
