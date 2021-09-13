@@ -42,14 +42,14 @@
             <router-link
                 :to="{name: 'Question', params: { id: Number($route.params.id) + 1 }}"
                 class="button"
-                v-if="store.getters.hasNextQuestion"
+                v-if="store.getters.hasNextQuestion && store.getters.hasSelectedAnswer"
             >
                 Next Question
             </router-link>
             <router-link
-                :to="{ name: 'Home' }"
+                :to="{ name: 'Result' }"
                 class="button"
-                v-else
+                v-else-if="!store.getters.hasNextQuestion && store.getters.hasSelectedAnswer"
             >
                 Show Results
             </router-link>
