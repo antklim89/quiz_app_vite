@@ -1,6 +1,7 @@
 *, *:after, *:before {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 :root {
@@ -14,6 +15,10 @@
     --space-3: 1rem;
     --space-4: 2rem;
     --space-5: 4rem;
+}
+
+button {
+    cursor: pointer;
 }
 
 .container {
