@@ -31,6 +31,13 @@
             >
                 Previous Question
             </router-link>
+            <router-link
+                :to="{ name: 'Home' }"
+                class="button"
+                v-else
+            >
+                Go Home
+            </router-link>
             <div class="grow"></div>
             <router-link
                 :to="{name: 'Question', params: { id: Number($route.params.id) + 1 }}"
@@ -38,6 +45,13 @@
                 v-if="store.getters.hasNextQuestion"
             >
                 Next Question
+            </router-link>
+            <router-link
+                :to="{ name: 'Home' }"
+                class="button"
+                v-else
+            >
+                Show Results
             </router-link>
         </div>
     </div>
