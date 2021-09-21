@@ -1,8 +1,15 @@
 <template>
-    <div class="container" v-if="store.getters.currentQuestion">
-        <h1 class="title">Question N {{ $route.params.id }}</h1>
+    <div
+        v-if="store.getters.currentQuestion"
+        class="container"
+    >
+        <h1 class="title">
+            Question N {{ $route.params.id }}
+        </h1>
         <div>
-            <h2 class="question">{{ store.getters.currentQuestion.question }}</h2>
+            <h2 class="question">
+                {{ store.getters.currentQuestion.question }}
+            </h2>
             <div class="answer__list">
                 <div
                     v-for="[name, answer] in store.getters.filtredAnswers"
@@ -12,52 +19,61 @@
                 >
                     <input
                         v-if="store.getters.currentQuestion"
+                        :id="name"
                         class="answer__input"
                         type="checkbox"
                         :name="name"
-                        :id="name"
-                        @input="handleChange"
                         :class="{checked: store.getters.currentQuestion.selectedAnswers[name]}"
+                        @input="handleChange"
                     >
-                    <label class="answer__label" :for="name">{{ answer }}</label>
+                    <label
+                        class="answer__label"
+                        :for="name"
+                    >{{ answer }}</label>
                 </div>
             </div>
         </div>
         <div class="actions">
             <router-link
+                v-if="store.getters.hasPrevQuestion"
                 :to="{name: 'Question', params: { id: Number($route.params.id) - 1 }}"
                 class="button"
-                v-if="store.getters.hasPrevQuestion"
             >
                 Previous Question
             </router-link>
             <router-link
+                v-else
                 :to="{ name: 'Home' }"
                 class="button"
-                v-else
             >
                 Go Home
             </router-link>
-            <div class="grow"></div>
+            <div class="grow" />
             <router-link
+                v-if="store.getters.hasNextQuestion && store.getters.hasSelectedAnswer"
                 :to="{name: 'Question', params: { id: Number($route.params.id) + 1 }}"
                 class="button"
-                v-if="store.getters.hasNextQuestion && store.getters.hasSelectedAnswer"
             >
                 Next Question
             </router-link>
             <router-link
+                v-else-if="!store.getters.hasNextQuestion && store.getters.hasSelectedAnswer"
                 :to="{ name: 'Result' }"
                 class="button"
-                v-else-if="!store.getters.hasNextQuestion && store.getters.hasSelectedAnswer"
             >
                 Show Results
             </router-link>
         </div>
     </div>
-    <div v-else class="no-question">
+    <div
+        v-else
+        class="no-question"
+    >
         <h1>Question not found</h1>
-        <router-link class="button" :to="{name: 'Home'}">
+        <router-link
+            class="button"
+            :to="{name: 'Home'}"
+        >
             Go Home
         </router-link>
     </div>
@@ -65,48 +81,48 @@
 
 
 <script lang="ts">
-import { defineComponent, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { defineComponent, watch } from 'vue';
+import { useRoute } from 'vue-router';
 
-import { useStore } from '../store'
-import { AnswerLetters } from '../types'
+import { useStore } from '../store';
+import { AnswerLetters } from '../types';
 
 
 export default defineComponent({
     setup() {
-        const store = useStore()
-        const route = useRoute()
+        const store = useStore();
+        const route = useRoute();
 
-        store.commit('setQuestionNumber', route.params.id)
+        store.commit('setQuestionNumber', route.params.id);
         watch(route, ({ params }) => {
-            store.commit('setQuestionNumber', params.id)
-        })
+            store.commit('setQuestionNumber', params.id);
+        });
 
 
         const handleChange = (e: { target: { checked: boolean, name: string } }) => {
-            const question = store.getters.currentQuestion
+            const question = store.getters.currentQuestion;
 
-            if (!question) return
-            const selectedAnswerName = e.target.name as AnswerLetters
-            const { checked } = e.target
+            if (!question) return;
+            const selectedAnswerName = e.target.name as AnswerLetters;
+            const { checked } = e.target;
 
             if (question.multipleCorrectAnswers) {
-                question.selectedAnswers[selectedAnswerName] = checked
+                question.selectedAnswers[selectedAnswerName] = checked;
             } else {
                 Object.keys(question.selectedAnswers).forEach((key) => {
-                    const answerKey = key as AnswerLetters
+                    const answerKey = key as AnswerLetters;
                     if (answerKey === selectedAnswerName) {
-                        question.selectedAnswers[answerKey] = true
+                        question.selectedAnswers[answerKey] = true;
                     } else {
-                        question.selectedAnswers[answerKey] = false
+                        question.selectedAnswers[answerKey] = false;
                     }
-                })
+                });
             }
-        }
+        };
 
-        return { store, handleChange }
+        return { store, handleChange };
     },
-})
+});
 </script>
 
 <style lang="scss" scoped>

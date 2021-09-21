@@ -88,6 +88,7 @@ module.exports = {
         'object-curly-newline': [1, { minProperties: 6, multiline: true }],
         'array-element-newline': [1, 'consistent'],
         'no-process-env': 0,
+        'no-negated-condition': 0,
         
         'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
         'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',

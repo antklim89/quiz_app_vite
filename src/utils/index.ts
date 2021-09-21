@@ -1,1 +1,1 @@
-export * from './transformQuestions'
+export * from './transformQuestions';

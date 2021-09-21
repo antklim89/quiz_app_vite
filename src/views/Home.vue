@@ -4,10 +4,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from 'vue';
 
-import StartQuestions from '../components/StartQuestions.vue'
+import StartQuestions from '../components/StartQuestions.vue';
 
 
-export default defineComponent({ components: { StartQuestions } })
+export default defineComponent({ components: { StartQuestions } });
 </script>

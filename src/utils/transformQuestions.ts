@@ -1,4 +1,4 @@
-import { IQuestion, QuestionResponse } from '../types'
+import { IQuestion, QuestionResponse } from '../types';
 
 
 export function transformQuestions(questions: QuestionResponse[]): IQuestion[] {
@@ -36,5 +36,5 @@ export function transformQuestions(questions: QuestionResponse[]): IQuestion[] {
             e: question.answers.answer_e,
             f: question.answers.answer_f,
         },
-    }))
+    }));
 }
