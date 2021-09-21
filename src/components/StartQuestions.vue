@@ -3,36 +3,52 @@
         <div>
             <label for="difficulty">Select difficulty: </label>
             <select v-model="difficulty">
-                <option value="Easy">Easy</option>
-                <option value="Medium">Medium</option>
-                <option value="Hard">Hard</option>
+                <option value="Easy">
+                    Easy
+                </option>
+                <option value="Medium">
+                    Medium
+                </option>
+                <option value="Hard">
+                    Hard
+                </option>
             </select>
         </div>
         <div>
             <label for="category">Select category: </label>
             <select v-model="category">
-                <option value="all">all</option>
-                <option value="linux">linux</option>
-                <option value="javascript">javascript</option>
-                <option value="php">php</option>
+                <option value="all">
+                    all
+                </option>
+                <option value="linux">
+                    linux
+                </option>
+                <option value="javascript">
+                    javascript
+                </option>
+                <option value="php">
+                    php
+                </option>
             </select>
         </div>
-        <button class="start">Start Quiz</button>
+        <button class="start">
+            Start Quiz
+        </button>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref } from 'vue';
 
 
 export default defineComponent({
     setup() {
-        const difficulty = ref('Easy')
-        const category = ref('all')
+        const difficulty = ref('Easy');
+        const category = ref('all');
 
-        return { difficulty, category }
+        return { difficulty, category };
     },
-})
+});
 </script>
 
 <style lang="scss" scoped>

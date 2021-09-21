@@ -2,24 +2,28 @@ const path = require('path');
 
 
 
-
 module.exports = {  
     root: true,
     env: {
-        node: true
+        browser: true,
+        es2020: true,
     },
     extends: [
-        'plugin:vue/vue3-essential',
-        '@vue/standard',
-        '@vue/typescript/recommended',
+        'plugin:vue/vue3-recommended',
         'eslint:all',
         'plugin:import/recommended',
         'plugin:import/errors',
         'plugin:import/warnings',
     ],
+    parser: "vue-eslint-parser",
     parserOptions: {
-        ecmaVersion: 2020,
+        "parser": "@typescript-eslint/parser",
+        "sourceType": "module",
     },
+    plugins: [
+        '@typescript-eslint',
+        'jsx-a11y',
+    ],
     rules: {
         'import/prefer-default-export': 0,
         'import/extensions': 0,
@@ -32,6 +36,8 @@ module.exports = {
             },
         ],
         'import/no-extraneous-dependencies': ['error', { devDependencies: ['*.js'] }],
+
+        "vue/html-indent": [1, 4],
 
         'capitalized-comments': 0,
         'multiline-comment-style': 0,
@@ -93,6 +99,15 @@ module.exports = {
         process: true,
         strapi: true,
         JSX: true,
+    },
+
+    settings: {
+        'import/resolver': {
+            alias: {
+                map: [['@', path.join(__dirname, './src')]],
+                extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+            },
+        },
     },
 
     ignorePatterns: ['**/node_modules/**/*', '**/.next/**/*', '**/build/**/*', '**/.tmp/**/*', '**/.cache/**/*', '**/cache/**/*', '**/public/**/*'],

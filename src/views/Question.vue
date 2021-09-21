@@ -68,8 +68,8 @@
 import { defineComponent, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
-import { useStore } from '@/store'
-import { AnswerLetters } from '@/types'
+import { useStore } from '../store'
+import { AnswerLetters } from '../types'
 
 
 export default defineComponent({

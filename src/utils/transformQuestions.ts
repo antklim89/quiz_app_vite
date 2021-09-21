@@ -1,4 +1,4 @@
-import { IQuestion, QuestionResponse } from '@/types'
+import { IQuestion, QuestionResponse } from '../types'
 
 
 export function transformQuestions(questions: QuestionResponse[]): IQuestion[] {

@@ -1,0 +1,11 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "emmet.showSuggestionsAsSnippets": true,
+  "emmet.triggerExpansionOnTab": true,
+  "editor.suggest.insertMode": "replace",
+  "editor.quickSuggestionsDelay": 1,
+  "eslint.validate": ["vue", "javascript", "typescript", "typescriptreact", "javascriptreact"]
+}

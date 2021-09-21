@@ -1,7 +1,10 @@
 <template>
     <div class="bg">
         <div class="container header">
-            <router-link class="logo" :to="{name: 'Home'}">
+            <router-link
+                class="logo"
+                :to="{name: 'Home'}"
+            >
                 QUIZ APP
             </router-link>
         </div>

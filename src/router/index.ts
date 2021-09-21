@@ -1,7 +1,6 @@
-// eslint-disable-next-line import/named
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
-import Home from '@/views/Home.vue'
+import Home from '../views/Home.vue'
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -13,22 +12,22 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/about',
         name: 'About',
-        component: () => import('@/views/About.vue'),
+        component: () => import('../views/About.vue'),
     },
     {
         path: '/question/:id',
         name: 'Question',
-        component: () => import('@/views/Question.vue'),
+        component: () => import('../views/Question.vue'),
     },
     {
         path: '/result',
         name: 'Result',
-        component: () => import('@/views/Result.vue'),
+        component: () => import('../views/Result.vue'),
     },
 ]
 
 const router = createRouter({
-    history: createWebHistory(process.env.BASE_URL),
+    history: createWebHistory(typeof process !== 'undefined' ? process.env.BASE_URL : undefined),
     routes,
 })
 
