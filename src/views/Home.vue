@@ -1,33 +1,12 @@
 <template>
-  <div>
-      <router-link :to="{name: 'Question', params: { id: 1 }}">
-        <button>Start Quiz</button>
-      </router-link>
-  </div>
+    <StartQuestions />
 </template>
-
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 
+import StartQuestions from '@/components/StartQuestions.vue'
 
-export default defineComponent({ name: 'Home' })
+
+export default defineComponent({ components: { StartQuestions } })
 </script>
-
-
-<style lang="scss" scoped>
-div {
-    text-align: center;
-}
-button {
-    font-size: 50px;
-    border: none;
-    border-radius: 0.5rem;
-    background: var(--primary-color);
-    color: var(--light-color);
-    padding: var(--space-2);
-    cursor: pointer;
-    margin: 5rem 0;
-    text-decoration: none;
-}
-</style>
