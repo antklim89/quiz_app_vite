@@ -14,6 +14,7 @@ module.exports = {
         'plugin:import/recommended',
         'plugin:import/errors',
         'plugin:import/warnings',
+        'plugin:@typescript-eslint/recommended',
     ],
     parser: "vue-eslint-parser",
     parserOptions: {
@@ -37,6 +38,12 @@ module.exports = {
         ],
         'import/no-extraneous-dependencies': ['error', { devDependencies: ['*.js'] }],
 
+        'no-underscore-dangle': [2, { 'allow': ['_q'] }],
+        '@typescript-eslint/no-var-requires': 0,
+        '@typescript-eslint/no-shadow': 2,
+        '@typescript-eslint/no-unused-vars': [1, { argsIgnorePattern: '^_' }],
+        '@typescript-eslint/no-empty-interface': 0,
+        
         "vue/html-indent": [1, 4],
 
         'capitalized-comments': 0,
