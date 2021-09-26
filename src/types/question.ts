@@ -30,6 +30,7 @@ export type AnswerLetters = 'a'|'b'|'c'|'d'|'e'|'f'
 
 export interface IQuestion {
   id: number
+  number: number
   question: string
   description: string
   answers: Record<AnswerLetters, string>

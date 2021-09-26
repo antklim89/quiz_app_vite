@@ -4,6 +4,9 @@ import { IQuestion, AnswerLetters } from '@/types';
 import { transformQuestions } from '@/utils';
 
 
+const YOUR_API_KEY = 'HVrXzlFivCd9hC7UuLQRM1JOPajDSugSvIXzv1an';
+
+
 export const store = createStore<State>({
     state: {
         questions: [],
@@ -11,20 +14,22 @@ export const store = createStore<State>({
     },
     actions: {
         async fetchQuestions(context) {
-            const res = await fetch('/questions.json');
+            const res = await fetch(`https://quizapi.io/api/v1/questions?apiKey=${YOUR_API_KEY}&limit=10&category=Linux`);
             const data = await res.json();
-
-            context.state.questions = transformQuestions(data);
+            context.commit('setQuestions', data);
         },
     },
     mutations: {
+        setQuestions(state, questions) {
+            state.questions = transformQuestions(questions);
+        },
         setQuestionNumber(state, id: number|string|string[]) {
             state.questionNumber = Number(id);
         },
     },
     getters: {
         currentQuestion({ questions, questionNumber }) {
-            return questions.find((question) => Number(question.id) === questionNumber);
+            return questions.find((question) => Number(question.number) === questionNumber);
         },
         hasQuestions({ questions }) {
             return questions.length > 0;

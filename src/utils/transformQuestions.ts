@@ -2,7 +2,8 @@ import { IQuestion, QuestionResponse } from '../types';
 
 
 export function transformQuestions(questions: QuestionResponse[]): IQuestion[] {
-    return questions.map((question) => ({
+    return questions.map((question, index) => ({
+        number: index + 1,
         id: question.id,
         category: question.category,
         description: question.description,

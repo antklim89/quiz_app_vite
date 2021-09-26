@@ -99,7 +99,7 @@ export default defineComponent({
         });
 
 
-        const handleChange = (e: { target: { checked: boolean, name: string } }) => {
+        const handleChange = (e: { target: { checked: boolean, name: string } } & Event) => {
             const question = store.getters.currentQuestion;
 
             if (!question) return;

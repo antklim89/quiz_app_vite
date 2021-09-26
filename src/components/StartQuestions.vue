@@ -31,7 +31,10 @@
                 </option>
             </select>
         </div>
-        <button class="start">
+        <button
+            class="start"
+            @click="startQuiz"
+        >
             Start Quiz
         </button>
     </div>
@@ -39,6 +42,9 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+import { useStore } from '@/store';
 
 
 export default defineComponent({
@@ -46,7 +52,16 @@ export default defineComponent({
         const difficulty = ref('Easy');
         const category = ref('all');
 
-        return { difficulty, category };
+        const store = useStore();
+        const { push } = useRouter();
+
+        const startQuiz = async () => {
+            console.debug('start: \n');
+            await store.dispatch('fetchQuestions');
+            push({ name: 'Question', params: { id: 1 } });
+        };
+
+        return { difficulty, category, startQuiz };
     },
 });
 </script>
