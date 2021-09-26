@@ -99,12 +99,13 @@ export default defineComponent({
         });
 
 
-        const handleChange = (e: { target: { checked: boolean, name: string } } & Event) => {
+        const handleChange = (e: Event) => {
             const question = store.getters.currentQuestion;
 
             if (!question) return;
-            const selectedAnswerName = e.target.name as AnswerLetters;
-            const { checked } = e.target;
+            const target = e.target as HTMLInputElement;
+            const selectedAnswerName = target.name as AnswerLetters;
+            const { checked } = target;
 
             if (question.multipleCorrectAnswers) {
                 question.selectedAnswers[selectedAnswerName] = checked;

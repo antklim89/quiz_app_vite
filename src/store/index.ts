@@ -1,10 +1,9 @@
 import { createStore, useStore as baseUseStore, Store as BaseStore } from 'vuex';
 
+import { URL, YOUR_API_KEY, LIMIT } from '../constants';
+
 import { IQuestion, AnswerLetters } from '@/types';
 import { transformQuestions } from '@/utils';
-
-
-const YOUR_API_KEY = 'HVrXzlFivCd9hC7UuLQRM1JOPajDSugSvIXzv1an';
 
 
 export const store = createStore<State>({
@@ -14,7 +13,7 @@ export const store = createStore<State>({
     },
     actions: {
         async fetchQuestions(context) {
-            const res = await fetch(`https://quizapi.io/api/v1/questions?apiKey=${YOUR_API_KEY}&limit=10&category=Linux`);
+            const res = await fetch(`${URL}?apiKey=${YOUR_API_KEY}&limit=${LIMIT}`);
             const data = await res.json();
             context.commit('setQuestions', data);
         },
@@ -56,14 +55,14 @@ export const store = createStore<State>({
         },
         results(state) {
             return state.questions.map((question) => {
-                const isCorrect = Object.entries(question.correctAnswers).every(([key, isCorrect]) => {
+                const isCorrect = Object.entries(question.correctAnswers).every(([key, isCorrectAnswer]) => {
                     const answerName = key as AnswerLetters;
                     const selectedAnswer = question.selectedAnswers[answerName];
-                    return selectedAnswer === isCorrect;
+                    return selectedAnswer === isCorrectAnswer;
                 });
 
                 const correctAnswers = Object.entries(question.correctAnswers)
-                    .filter(([, isCorrect]) => isCorrect)
+                    .filter(([, isCorrectAnswer]) => isCorrectAnswer)
                     .map(([key]) => question.answers[key as AnswerLetters]);
 
                 const selectedAnswer = Object.entries(question.selectedAnswers)
