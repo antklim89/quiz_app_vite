@@ -15,7 +15,6 @@
                     v-for="[name, answer] in store.getters.filtredAnswers"
                     :key="answer"
                     class="answer"
-                    :for="answer"
                 >
                     <input
                         v-if="store.getters.currentQuestion"
