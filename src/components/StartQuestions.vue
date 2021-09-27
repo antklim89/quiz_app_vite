@@ -88,6 +88,7 @@ export default defineComponent({
 .category {
     label {
         font-size: 1.6rem;
+        text-transform: uppercase;
     }
 }
 </style>
