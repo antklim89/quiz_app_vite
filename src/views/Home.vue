@@ -1,5 +1,4 @@
 <template>
-    xxxdasd
     <StartQuestions />
 </template>
 
