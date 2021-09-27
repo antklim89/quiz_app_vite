@@ -1,33 +1,31 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
-import Home from '../views/Home.vue';
-
 
 const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
         name: 'Home',
-        component: Home,
+        component: () => import('@/views/Home.vue'),
     },
     {
         path: '/about',
         name: 'About',
-        component: () => import('../views/About.vue'),
+        component: () => import('@/views/About.vue'),
     },
     {
         path: '/question/:id',
         name: 'Question',
-        component: () => import('../views/Question.vue'),
+        component: () => import('@/views/Question.vue'),
     },
     {
         path: '/result',
         name: 'Result',
-        component: () => import('../views/Result.vue'),
+        component: () => import('@/views/Result.vue'),
     },
 ];
 
 const router = createRouter({
-    history: createWebHistory(typeof process !== 'undefined' ? process.env.BASE_URL : '/'),
+    history: createWebHistory(import.meta.env.BASE_URL),
     routes,
 });
 
