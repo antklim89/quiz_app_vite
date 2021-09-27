@@ -1,19 +1,21 @@
 import { createStore, useStore as baseUseStore, Store as BaseStore } from 'vuex';
 
-import { URL, YOUR_API_KEY, LIMIT } from '../constants';
+import { URL, QUIZ_API_KEY, LIMIT, categories } from '../constants';
 
 import { IQuestion, AnswerLetters } from '@/types';
 import { transformQuestions } from '@/utils';
 
 
 export const store = createStore<State>({
-    state: {
+    state: () => ({
         questions: [],
         questionNumber: 1,
-    },
+        selectedCategory: categories[0],
+    }),
     actions: {
         async fetchQuestions(context) {
-            const res = await fetch(`${URL}?apiKey=${YOUR_API_KEY}&limit=${LIMIT}`);
+            const url = `${URL}?apiKey=${QUIZ_API_KEY}&limit=${LIMIT}&category=${context.state.selectedCategory}`;
+            const res = await fetch(url);
             const data = await res.json();
             context.commit('setQuestions', data);
         },
@@ -24,6 +26,9 @@ export const store = createStore<State>({
         },
         setQuestionNumber(state, id: number|string|string[]) {
             state.questionNumber = Number(id);
+        },
+        setSelectedCategory(state, newValue: string) {
+            state.selectedCategory = newValue;
         },
     },
     getters: {
@@ -97,6 +102,7 @@ export const store = createStore<State>({
 interface State {
     questions: IQuestion[]
     questionNumber: number
+    selectedCategory: string
 }
 
 interface Result {
