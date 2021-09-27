@@ -43,3 +43,29 @@ button {
     text-align: center;
     margin: var(--space-4) 0;
 }
+
+
+
+.select {
+    padding: var(--space-2);
+    display: flex;
+
+    label {
+        --outline-width: 2px;
+        width: 100%;
+        outline: var(--outline-width) solid var(--primary-color);
+        padding: var(--space-2);
+        cursor: pointer;
+        text-align: center;
+        transition: 100ms;
+    }
+
+
+    label.checked  {
+        --outline-width: 4px;
+    }
+
+    input {
+        display: none;
+    }
+}

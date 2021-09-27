@@ -10,25 +10,25 @@
             <h2 class="question">
                 {{ store.getters.currentQuestion.question }}
             </h2>
-            <div class="answer__list">
+            <div class="answers">
                 <div
                     v-for="[name, answer] in store.getters.filtredAnswers"
                     :key="answer"
-                    class="answer"
+                    class="select"
                 >
                     <input
                         v-if="store.getters.currentQuestion"
                         :id="name"
-                        class="answer__input"
                         type="checkbox"
                         :name="name"
-                        :class="{checked: store.getters.currentQuestion.selectedAnswers[name]}"
                         @input="handleChange"
                     >
                     <label
-                        class="answer__label"
                         :for="name"
-                    >{{ answer }}</label>
+                        :class="{checked: store.getters.currentQuestion.selectedAnswers[name]}"
+                    >
+                        {{ answer }}
+                    </label>
                 </div>
             </div>
         </div>
@@ -129,34 +129,9 @@ export default defineComponent({
     .question {
         margin-bottom: var(--space-2);
     }
-    .answer {
-        flex: 1 1 calc(50% - var(--space-2) * 2);
-        margin: var(--space-2);
-        border: 1px solid var(--primary-color);
-
-        &__list {
-            display: flex;
-            margin: calc(var(--space-2) * -1);
-        }
-
-        &__input {
-            display: none;
-        }
-
-        &__label {
-            display: inline-block;
-            font-size: 1.2rem;
-            width: 100%;
-            padding: var(--space-2) 0;
-            text-align: center;
-            cursor: pointer;
-            transition: 100ms;
-        }
-
-        &__input.checked + &__label  {
-            outline: 5px solid var(--primary-color);
-            outline-offset: -5px;
-        }
+    .answers {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
     }
     .actions {
         display: flex;

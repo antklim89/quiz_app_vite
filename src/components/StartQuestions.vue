@@ -4,10 +4,9 @@
             <div
                 v-for="category in categories"
                 :key="category"
-                class="category"
+                class="category select"
             >
                 <label
-                    class="category__label"
                     :for="category"
                     :class="{checked: store.state.selectedCategory === category}"
                 >
@@ -15,7 +14,6 @@
                 </label>
                 <input
                     :id="category"
-                    class="category__input"
                     :checked="store.state.selectedCategory === category"
                     type="radio"
                     name="category"
@@ -88,27 +86,8 @@ export default defineComponent({
 }
 
 .category {
-    padding: var(--space-2);
-    display: flex;
-
-    &__label {
-        --outline-width: 2px;
-        width: 100%;
-        outline: var(--outline-width) solid var(--primary-color);
-        padding: var(--space-2);
-        font-size: 1.4rem;
-        cursor: pointer;
-        text-align: center;
-        transition: 100ms;
-    }
-
-
-    &__label.checked  {
-        --outline-width: 4px;
-    }
-
-    &__input {
-        display: none;
+    label {
+        font-size: 1.6rem;
     }
 }
 </style>
