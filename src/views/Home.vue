@@ -23,7 +23,9 @@
         </div>
         <div class="start-button-container">
             <button
-                class="start-button loading"
+                class="start-button button"
+                :class="{loading: loading}"
+                :disabled="loading"
                 @click="startQuiz"
             >
                 Start Quiz
@@ -33,7 +35,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { categories } from '@/constants';
@@ -43,20 +45,33 @@ import { useStore } from '@/store';
 export default defineComponent({
     setup() {
         const store = useStore();
-
+        const loading = ref(false);
+        const errorMessage = ref<string|null>(null);
 
         const { push } = useRouter();
 
         const startQuiz = async () => {
-            await store.dispatch('fetchQuestions');
-            push({ name: 'Question', params: { id: 1 } });
+            loading.value = true;
+            errorMessage.value = null;
+            try {
+                await store.dispatch('fetchQuestions');
+                push({ name: 'Question', params: { id: 1 } });
+            } catch (error) {
+                if (error instanceof Error) {
+                    errorMessage.value = error.message;
+                }
+            } finally {
+                loading.value = false;
+            }
         };
 
         const handleSelectCategory = (value: string) => {
             store.commit('setSelectedCategory', value);
         };
 
-        return { store, startQuiz, categories, handleSelectCategory };
+        return {
+            store, startQuiz, categories, handleSelectCategory, loading, errorMessage,
+        };
     },
 });
 </script>
@@ -68,14 +83,9 @@ export default defineComponent({
 
     .start-button {
         font-size: 50px;
-        border: none;
         border-radius: 0.5rem;
-        background: var(--primary-color);
-        color: var(--light-color);
         padding: var(--space-2);
-        cursor: pointer;
         margin: 5rem 0;
-        text-decoration: none;
     }
 }
 
