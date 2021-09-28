@@ -23,7 +23,7 @@
         </div>
         <div class="start-button-container">
             <button
-                class="start-button"
+                class="start-button loading"
                 @click="startQuiz"
             >
                 Start Quiz

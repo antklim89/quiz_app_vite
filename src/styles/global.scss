@@ -69,3 +69,39 @@ button {
         display: none;
     }
 }
+
+.loading {
+    position: relative;
+
+    &::after {
+        content: "";
+        width: 10px;
+        height: 10px;
+        background: var(--light-color);
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        border-radius: 50%;
+        animation: loadingAnimation infinite alternate ease-in-out 1000ms;
+        transform: translate(0px, -20px);
+    }
+}
+
+@keyframes loadingAnimation {
+    0% {
+        transform: translate(40px, 0px);
+    }
+    25% {
+        transform: translate(20px, -20px);
+    }
+    50% {
+        transform: translate(0px, 0px);
+    }
+    75% {
+        transform: translate(-20px, -20px);
+    }
+    100% {
+        transform: translate(-40px, 0px);
+    }
+}
