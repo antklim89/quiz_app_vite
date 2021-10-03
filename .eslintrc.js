@@ -36,7 +36,7 @@ module.exports = {
                 'alphabetize': { order: 'asc', caseInsensitive: true },
             },
         ],
-        'import/no-extraneous-dependencies': ['error', { devDependencies: ['*.js'] }],
+        'import/no-extraneous-dependencies': ['error', { 'devDependencies': ['**/*.test.*', '**/*.spec.*', '**/*.config.*'] }],
 
         'no-underscore-dangle': [2, { 'allow': ['_q'] }],
         '@typescript-eslint/no-var-requires': 0,
