@@ -1,8 +1,8 @@
 import { createStore, useStore as baseUseStore, Store as BaseStore } from 'vuex';
 
-import { URL, QUIZ_API_KEY, LIMIT, categories } from '../constants';
+import { URL, QUIZ_API_KEY, LIMIT, categories, QUESTIONS_STORAGE_NAME } from '../constants';
 
-import { IQuestion, AnswerLetters } from '@/types';
+import { IQuestion, AnswerLetters, QuestionResponse } from '@/types';
 import { transformQuestions } from '@/utils';
 
 
@@ -13,16 +13,25 @@ export const store = createStore<State>({
         selectedCategory: categories[0],
     }),
     actions: {
+        initQuestions(context) {
+            const questionsString = localStorage.getItem(QUESTIONS_STORAGE_NAME);
+
+            if (questionsString) {
+                const questions: IQuestion[] = JSON.parse(questionsString);
+                context.commit('setQuestions', questions);
+            }
+        },
         async fetchQuestions(context) {
             const url = `${URL}?apiKey=${QUIZ_API_KEY}&limit=${LIMIT}&category=${context.state.selectedCategory}`;
             const res = await fetch(url);
-            const data = await res.json();
-            context.commit('setQuestions', data);
+            const data: QuestionResponse[] = await res.json();
+            const questions = transformQuestions(data);
+            return context.commit('setQuestions', questions);
         },
     },
     mutations: {
         setQuestions(state, questions) {
-            state.questions = transformQuestions(questions);
+            state.questions = questions;
         },
         setQuestionNumber(state, id: number|string|string[]) {
             state.questionNumber = Number(id);
