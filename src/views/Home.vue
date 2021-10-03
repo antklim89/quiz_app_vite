@@ -21,15 +21,24 @@
                 >
             </div>
         </div>
-        <div class="start-button-container">
+        <div class="button-container">
             <button
-                class="start-button button"
+                class="button button"
                 :class="{loading: loading}"
                 :disabled="loading"
                 @click="startQuiz"
             >
                 Start Quiz
             </button>
+            <router-link
+                v-if="store.getters.hasQuestions"
+                class="button button"
+                :class="{loading: loading}"
+                :disabled="loading"
+                :to="{name: 'Question', params: { id: 1 }}"
+            >
+                Continue Quiz
+            </router-link>
         </div>
     </div>
 </template>
@@ -77,15 +86,16 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.start-button-container {
+.button-container {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 
-    .start-button {
+    .button {
         font-size: 50px;
         border-radius: 0.5rem;
         padding: var(--space-2);
-        margin: 5rem 0;
+        margin: 5rem 1rem;
     }
 }
 
