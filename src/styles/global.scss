@@ -9,6 +9,8 @@
     --secondary-color: #020646;
     --light-color: #ddd;
     --dark-color: #111;
+    --correct-color: #315C2B;
+    --incorrect-color: #FE4A49;
 
     --sp-1: .2rem;
     --sp-2: .7rem;
@@ -21,7 +23,7 @@
     --fs-xs: var(--fs) * 0.7;
     --fs-sm: var(--fs) * 0.5;
     --fs: .8rem;
-    --fs-lg: calc(var(--fs) * 1.5);
+    --fs-lg: calc(var(--fs) * 1.2);
     --fs-xl: calc(var(--fs) * 3);
 }
 

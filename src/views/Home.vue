@@ -28,7 +28,7 @@
                 :disabled="loading"
                 @click="startQuiz"
             >
-                Start Quiz
+                Start New
             </button>
             <router-link
                 v-if="store.getters.hasQuestions"
@@ -37,7 +37,16 @@
                 :disabled="loading"
                 :to="{name: 'Question', params: { id: 1 }}"
             >
-                Continue Quiz
+                Continue
+            </router-link>
+            <router-link
+                v-if="store.getters.allQuestionsAnswered"
+                class="button button"
+                :class="{loading: loading}"
+                :disabled="loading"
+                :to="{name: 'Result'}"
+            >
+                Show Results
             </router-link>
         </div>
     </div>
@@ -97,6 +106,7 @@ export default defineComponent({
         font-size: var(--fs-xl);
         border-radius: 0.5rem;
         padding: var(--sp-2);
+        margin: 0 var(--sp-2);
     }
 }
 

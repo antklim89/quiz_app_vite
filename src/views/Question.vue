@@ -10,6 +10,7 @@
             <h2 class="question">
                 {{ store.getters.currentQuestion.question }}
             </h2>
+            <b>Category: {{ store.getters.currentQuestion.category }}</b>
             <div class="answers">
                 <div
                     v-for="[name, answer] in store.getters.filtredAnswers"

@@ -5,6 +5,7 @@ export const LIMIT = 10;
 export const QUESTIONS_STORAGE_NAME = 'QUIZ_APP_QUESTIONS';
 
 export const categories = [
+    'uncategorized',
     'linux',
     'bash',
     'docker',
@@ -12,5 +13,4 @@ export const categories = [
     'cms',
     'code',
     'devops',
-    'uncategorized',
 ];

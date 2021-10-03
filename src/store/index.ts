@@ -59,6 +59,7 @@ export const store = createStore<State>({
             return Object.values(question.selectedAnswers).some((answer) => answer);
         },
         allQuestionsAnswered(state) {
+            if (state.questions.length === 0) return false;
             return state.questions.every((question) => {
                 return Object.values(question.selectedAnswers).some((answer) => answer);
             });

@@ -20,33 +20,49 @@
         </p>
         <div class="results">
             <div
-                v-for="result in store.getters.results"
+                v-for="result, index in store.getters.results"
                 :key="result.id"
                 class="result"
             >
                 <h2 class="result__title">
+                    {{ index + 1 }}.
                     {{ result.question }}
                 </h2>
                 <div>
                     <b>Difficulty: {{ result.difficulty }}. </b>
                     <b>Category: {{ result.category }}. </b>
                 </div>
-                <p class="result__answer">
-                    Your
-                    {{ result.selectedAnswer.length === 1 ? 'answer' : 'answers' }}
-                    {{ result.selectedAnswer.map((i) => `"${i}"`).join(', ') }}
-                    {{ result.selectedAnswer.length === 1 ? 'is' : 'are' }}
-                    {{ result.isCorrect ? '' : 'not' }}
-                    correct.
-                    Correct
-                    {{ result.correctAnswers.length === 1 ? 'answer is' : 'answers are' }}
-                    {{ result.correctAnswers.map((i) => `"${i}"`).join(', ') }}
-                    .
+                <p
+                    class="result__answer"
+                    :class="{correct: result.isCorrect}"
+                >
+                    <span>
+                        Your
+                        {{ result.selectedAnswer.length === 1 ? 'answer' : 'answers' }}
+                        {{ result.selectedAnswer.map((i) => `"${i}"`).join(', ') }}
+                        {{ result.selectedAnswer.length === 1 ? 'is' : 'are' }}
+                        {{ result.isCorrect ? '' : 'not' }}
+                        correct.
+                    </span>
+                    <span v-if="!result.isCorrect">
+                        Correct
+                        {{ result.correctAnswers.length === 1 ? 'answer is' : 'answers are' }}
+                        {{ result.correctAnswers.map((i) => `"${i}"`).join(', ') }}
+                        .
+                    </span>
                 </p>
                 <p class="result__explanation">
                     {{ result.explanation }}
                 </p>
             </div>
+        </div>
+        <div class="footer">
+            <router-link
+                class="button"
+                :to="{name: 'Home'}"
+            >
+                Go Home
+            </router-link>
         </div>
     </section>
     <section
@@ -107,6 +123,18 @@ export default defineComponent({
 
     &__answer {
         margin: var(--sp-2) 0;
+        font-size: var(--fs-lg);
+        color: var(--incorrect-color);
+
+        &.correct {
+            color: var(--correct-color);
+        }
     }
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    margin: var(--sp-4) 0;
 }
 </style>
