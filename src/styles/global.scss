@@ -10,11 +10,45 @@
     --light-color: #ddd;
     --dark-color: #111;
 
-    --space-1: .2rem;
-    --space-2: .7rem;
-    --space-3: 1rem;
-    --space-4: 2rem;
-    --space-5: 4rem;
+    --sp-1: .2rem;
+    --sp-2: .7rem;
+    --sp-3: 1rem;
+    --sp-4: 2rem;
+    --sp-5: 4rem;
+
+    --cols: 1;
+    
+    --fs-xs: var(--fs) * 0.7;
+    --fs-sm: var(--fs) * 0.5;
+    --fs: .8rem;
+    --fs-lg: calc(var(--fs) * 1.5);
+    --fs-xl: calc(var(--fs) * 3);
+}
+
+
+@media screen and (min-width: 640px) {
+    :root {
+        --cols: 2;
+        --fs: 1rem;
+    }
+}
+
+@media screen and (min-width: 1080px) {
+    :root {
+        --cols: 3;
+        --fs: 1.1rem;
+    }
+}
+
+@media screen and (min-width: 1920px) {
+    :root {
+        --cols: 4;
+        --fs: 1.2rem;
+    }
+}
+
+html {
+    font-size: var(--fs);
 }
 
 button {
@@ -24,8 +58,7 @@ button {
 .button {
     background: var(--primary-color);
     border: none;
-    padding: var(--space-3) var(--space-5);
-    margin: var(--space-3) auto;
+    padding: var(--sp-3) var(--sp-3);
     color: var(--light-color);
     text-decoration: none;
 
@@ -43,23 +76,23 @@ button {
 
 .title {
     color: var(--primary-color);
-    font-size: 2rem;
+    font-size: var(--fs-xl);
     text-transform: uppercase;
     text-align: center;
-    margin: var(--space-4) 0;
+    margin: var(--sp-4) 0;
 }
 
 
 
 .select {
-    padding: var(--space-2);
+    padding: var(--sp-2);
     display: flex;
 
     label {
         --outline-width: 2px;
         width: 100%;
         outline: var(--outline-width) solid var(--primary-color);
-        padding: var(--space-2);
+        padding: var(--sp-2);
         cursor: pointer;
         text-align: center;
         transition: 100ms;

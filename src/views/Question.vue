@@ -36,29 +36,28 @@
             <router-link
                 v-if="store.getters.hasPrevQuestion"
                 :to="{name: 'Question', params: { id: Number($route.params.id) - 1 }}"
-                class="button"
+                class="button actions__item"
             >
                 Previous Question
             </router-link>
             <router-link
                 v-else
                 :to="{ name: 'Home' }"
-                class="button"
+                class="button actions__item"
             >
                 Go Home
             </router-link>
-            <div class="grow" />
             <router-link
                 v-if="store.getters.hasNextQuestion && store.getters.hasSelectedAnswer"
                 :to="{name: 'Question', params: { id: Number($route.params.id) + 1 }}"
-                class="button"
+                class="button actions__item"
             >
                 Next Question
             </router-link>
             <router-link
                 v-else-if="!store.getters.hasNextQuestion && store.getters.hasSelectedAnswer"
                 :to="{ name: 'Result' }"
-                class="button"
+                class="button actions__item"
             >
                 Show Results
             </router-link>
@@ -127,17 +126,19 @@ export default defineComponent({
 
 <style lang="scss" scoped>
     .question {
-        margin-bottom: var(--space-2);
+        margin-bottom: var(--sp-2);
     }
     .answers {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(var(--cols), 1fr);
     }
     .actions {
         display: flex;
+        justify-content: space-around;
+        margin-top: var(--sp-5);
 
-        .grow {
-            flex-grow: 1;
+        &__item {
+            margin: 0 var(--sp-2);
         }
     }
     .no-question {

@@ -86,9 +86,9 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .conclusion {
-    font-size: 2rem;
+    font-size: var(--fs-lg);
     color: var(--primary-color);
-    margin-bottom: var(--space-5);
+    margin-bottom: var(--sp-5);
     text-align: center;
 }
 
@@ -98,16 +98,15 @@ export default defineComponent({
 }
 
 .result {
-    padding: var(--space-2);
-    margin-bottom: var(--space-1);
+    padding: var(--sp-2);
+    margin-bottom: var(--sp-1);
 
     &__title {
         color: var(--primary-color);
     }
 
     &__answer {
-        font-size: 1.2rem;
-        margin: var(--space-2) 0;
+        margin: var(--sp-2) 0;
     }
 }
 </style>

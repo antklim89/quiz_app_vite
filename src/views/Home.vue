@@ -90,24 +90,25 @@ export default defineComponent({
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    margin: var(--sp-4) var(--sp-1);
 
     .button {
-        font-size: 50px;
+        text-align: center;
+        font-size: var(--fs-xl);
         border-radius: 0.5rem;
-        padding: var(--space-2);
-        margin: 5rem 1rem;
+        padding: var(--sp-2);
     }
 }
 
 .categories {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: var(--space-2);
+    grid-template-columns: repeat(var(--cols), 1fr);
+    gap: var(--sp-2);
 }
 
 .category {
     label {
-        font-size: 1.6rem;
+        font-size: var(--fs-lg);
         text-transform: uppercase;
     }
 }
