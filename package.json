@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "ntl dev",
     "build": "vue-tsc --noEmit && vite build",
-    "serve": "ntl dev:exec vite preview --host"
+    "serve": "ntl build",
+    "c": "netlify functions:create"
   },
   "dependencies": {
     "axios": "^0.22.0",
