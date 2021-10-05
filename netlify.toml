@@ -11,5 +11,5 @@
   autoLaunch = false
 
 [[redirects]]
-  from = "*"
-  to = "*"
+  from = "/*"
+  to = "/*"
