@@ -56,7 +56,7 @@
 import { defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { categories } from '@/constants';
+import { CATEGORIES } from '@/constants';
 import { useStore } from '@/store';
 
 
@@ -88,7 +88,7 @@ export default defineComponent({
         };
 
         return {
-            store, startQuiz, categories, handleSelectCategory, loading, errorMessage,
+            store, startQuiz, categories: CATEGORIES, handleSelectCategory, loading, errorMessage,
         };
     },
 });

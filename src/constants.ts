@@ -1,10 +1,7 @@
-export const QUIZ_API_KEY = import.meta.env.VITE_QUIZ_API_KEY;
-export const URL = 'https://quizapi.io/api/v1/questions';
-export const LIMIT = 10;
-
+export const URL = '/.netlify/functions/questions';
 export const QUESTIONS_STORAGE_NAME = 'QUIZ_APP_QUESTIONS';
 
-export const categories = [
+export const CATEGORIES = [
     'uncategorized',
     'linux',
     'bash',

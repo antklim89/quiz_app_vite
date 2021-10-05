@@ -1,0 +1,7 @@
+[dev]
+  command = "vite preview --host --port 8888"
+  publish = "dist"
+  functions = "functions"
+  targetPort = 8888
+  port = 3000
+  autoLaunch = false

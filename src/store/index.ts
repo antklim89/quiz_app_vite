@@ -1,6 +1,6 @@
 import { createStore, useStore as baseUseStore, Store as BaseStore } from 'vuex';
 
-import { URL, QUIZ_API_KEY, LIMIT, categories, QUESTIONS_STORAGE_NAME } from '../constants';
+import { URL, CATEGORIES, QUESTIONS_STORAGE_NAME } from '../constants';
 
 import { IQuestion, AnswerLetters, QuestionResponse } from '@/types';
 import { transformQuestions } from '@/utils';
@@ -10,7 +10,7 @@ export const store = createStore<State>({
     state: () => ({
         questions: [],
         questionNumber: 1,
-        selectedCategory: categories[0],
+        selectedCategory: CATEGORIES[0],
     }),
     actions: {
         initQuestions(context) {
@@ -22,7 +22,7 @@ export const store = createStore<State>({
             }
         },
         async fetchQuestions(context) {
-            const url = `${URL}?apiKey=${QUIZ_API_KEY}&limit=${LIMIT}&category=${context.state.selectedCategory}`;
+            const url = `${URL}?category=${context.state.selectedCategory}`;
             const res = await fetch(url);
             const data: QuestionResponse[] = await res.json();
             const questions = transformQuestions(data);
