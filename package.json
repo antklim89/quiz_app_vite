@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "ntl dev",
     "build": "vue-tsc --noEmit && vite build",
-    "serve": "ntl build",
+    "serve": "vite preview",
     "c": "netlify functions:create"
   },
   "dependencies": {
