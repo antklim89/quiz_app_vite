@@ -9,3 +9,7 @@
   targetPort = 8888
   port = 3000
   autoLaunch = false
+
+[[redirects]]
+  from = "*"
+  to = "*"
