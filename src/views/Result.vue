@@ -85,19 +85,12 @@
 </template>
 
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
+<script lang="ts" setup>
 import { useStore } from '../store';
 
 
-export default defineComponent({
-    setup() {
-        const store = useStore();
+const store = useStore();
 
-        return { store };
-    },
-});
 </script>
 
 <style lang="scss" scoped>

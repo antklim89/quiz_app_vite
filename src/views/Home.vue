@@ -2,7 +2,7 @@
     <div class="container">
         <div class="categories">
             <div
-                v-for="category in categories"
+                v-for="category in CATEGORIES"
                 :key="category"
                 class="category select"
             >
@@ -52,46 +52,39 @@
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
+<script lang="ts" setup>
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { CATEGORIES } from '@/constants';
 import { useStore } from '@/store';
 
 
-export default defineComponent({
-    setup() {
-        const store = useStore();
-        const loading = ref(false);
-        const errorMessage = ref<string|null>(null);
+const store = useStore();
+const loading = ref(false);
+const errorMessage = ref<string|null>(null);
 
-        const { push } = useRouter();
+const { push } = useRouter();
 
-        const startQuiz = async () => {
-            loading.value = true;
-            errorMessage.value = null;
-            try {
-                await store.dispatch('fetchQuestions');
-                push({ name: 'Question', params: { id: 1 } });
-            } catch (error) {
-                if (error instanceof Error) {
-                    errorMessage.value = error.message;
-                }
-            } finally {
-                loading.value = false;
-            }
-        };
+const startQuiz = async () => {
+    loading.value = true;
+    errorMessage.value = null;
+    try {
+        await store.dispatch('fetchQuestions');
+        push({ name: 'Question', params: { id: 1 } });
+    } catch (error) {
+        if (error instanceof Error) {
+            errorMessage.value = error.message;
+        }
+    } finally {
+        loading.value = false;
+    }
+};
 
-        const handleSelectCategory = (value: string) => {
-            store.commit('setSelectedCategory', value);
-        };
+const handleSelectCategory = (value: string) => {
+    store.commit('setSelectedCategory', value);
+};
 
-        return {
-            store, startQuiz, categories: CATEGORIES, handleSelectCategory, loading, errorMessage,
-        };
-    },
-});
 </script>
 
 <style lang="scss" scoped>

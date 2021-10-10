@@ -79,50 +79,44 @@
 </template>
 
 
-<script lang="ts">
-import { defineComponent, watch } from 'vue';
+<script lang="ts" setup>
+import { watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { useStore } from '../store';
 import { AnswerLetters } from '../types';
 
 
-export default defineComponent({
-    setup() {
-        const store = useStore();
-        const route = useRoute();
+const store = useStore();
+const route = useRoute();
 
-        store.commit('setQuestionNumber', route.params.id);
-        watch(route, ({ params }) => {
-            store.commit('setQuestionNumber', params.id);
-        });
-
-
-        const handleChange = (e: Event) => {
-            const question = store.getters.currentQuestion;
-
-            if (!question) return;
-            const target = e.target as HTMLInputElement;
-            const selectedAnswerName = target.name as AnswerLetters;
-            const { checked } = target;
-
-            if (question.multipleCorrectAnswers) {
-                question.selectedAnswers[selectedAnswerName] = checked;
-            } else {
-                Object.keys(question.selectedAnswers).forEach((key) => {
-                    const answerKey = key as AnswerLetters;
-                    if (answerKey === selectedAnswerName) {
-                        question.selectedAnswers[answerKey] = true;
-                    } else {
-                        question.selectedAnswers[answerKey] = false;
-                    }
-                });
-            }
-        };
-
-        return { store, handleChange };
-    },
+store.commit('setQuestionNumber', route.params.id);
+watch(route, ({ params }) => {
+    store.commit('setQuestionNumber', params.id);
 });
+
+
+const handleChange = (e: Event) => {
+    const question = store.getters.currentQuestion;
+
+    if (!question) return;
+    const target = e.target as HTMLInputElement;
+    const selectedAnswerName = target.name as AnswerLetters;
+    const { checked } = target;
+
+    if (question.multipleCorrectAnswers) {
+        question.selectedAnswers[selectedAnswerName] = checked;
+    } else {
+        Object.keys(question.selectedAnswers).forEach((key) => {
+            const answerKey = key as AnswerLetters;
+            if (answerKey === selectedAnswerName) {
+                question.selectedAnswers[answerKey] = true;
+            } else {
+                question.selectedAnswers[answerKey] = false;
+            }
+        });
+    }
+};
 </script>
 
 <style lang="scss" scoped>

@@ -4,8 +4,7 @@
   "scripts": {
     "dev": "ntl dev",
     "build": "vue-tsc --noEmit && vite build && echo '/* /index.html  200' | cat > dist/_redirects",
-    "serve": "vite preview",
-    "c": "netlify functions:create"
+    "serve": "vite preview"
   },
   "dependencies": {
     "axios": "^0.22.0",
