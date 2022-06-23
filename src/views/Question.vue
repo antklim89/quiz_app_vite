@@ -4,7 +4,7 @@
         class="container"
     >
         <h1 class="title">
-            Question N {{ $route.params.id }}
+            Question &#8470;{{ $route.params.id }}
         </h1>
         <div>
             <h2 class="question">

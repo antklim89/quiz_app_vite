@@ -80,7 +80,6 @@ button {
 .title {
     color: var(--primary-color);
     font-size: var(--fs-xl);
-    text-transform: uppercase;
     text-align: center;
     margin: var(--sp-4) 0;
 }
@@ -99,11 +98,12 @@ button {
         cursor: pointer;
         text-align: center;
         transition: 100ms;
+        border-radius: 1rem;
     }
 
 
     label.checked  {
-        --outline-width: 4px;
+        --outline-width: 8px;
     }
 
     input {

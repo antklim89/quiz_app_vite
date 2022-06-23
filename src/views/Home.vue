@@ -23,7 +23,7 @@
         </div>
         <div class="button-container">
             <button
-                class="button button"
+                class="button"
                 :class="{loading: loading}"
                 :disabled="loading"
                 @click="startQuiz"
@@ -32,7 +32,7 @@
             </button>
             <router-link
                 v-if="store.getters.hasQuestions"
-                class="button button"
+                class="button"
                 :class="{loading: loading}"
                 :disabled="loading"
                 :to="{name: 'Question', params: { id: 1 }}"
@@ -41,7 +41,7 @@
             </router-link>
             <router-link
                 v-if="store.getters.allQuestionsAnswered"
-                class="button button"
+                class="button"
                 :class="{loading: loading}"
                 :disabled="loading"
                 :to="{name: 'Result'}"
@@ -90,16 +90,17 @@ const handleSelectCategory = (value: string) => {
 <style lang="scss" scoped>
 .button-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     flex-wrap: wrap;
-    margin: var(--sp-4) var(--sp-1);
+    margin: var(--sp-5) var(--sp-1);
 
     .button {
         text-align: center;
         font-size: var(--fs-xl);
         border-radius: 0.5rem;
-        padding: var(--sp-2);
-        margin: 0 var(--sp-2);
+        padding: var(--sp-1) var(--sp-4);
+        margin: var(--sp-2);
     }
 }
 
