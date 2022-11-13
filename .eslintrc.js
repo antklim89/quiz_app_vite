@@ -1,8 +1,7 @@
 const path = require('path');
 
 
-
-module.exports = {  
+module.exports = {
     root: true,
     env: {
         browser: true,
@@ -16,10 +15,10 @@ module.exports = {
         'plugin:import/warnings',
         'plugin:@typescript-eslint/recommended',
     ],
-    parser: "vue-eslint-parser",
+    parser: 'vue-eslint-parser',
     parserOptions: {
-        "parser": "@typescript-eslint/parser",
-        "sourceType": "module",
+        'parser': '@typescript-eslint/parser',
+        'sourceType': 'module',
     },
     plugins: [
         '@typescript-eslint',
@@ -38,17 +37,17 @@ module.exports = {
         ],
         'import/no-extraneous-dependencies': ['error', { 'devDependencies': ['**/*.test.*', '**/*.spec.*', '**/*.config.*'] }],
 
-        'no-underscore-dangle': [2, { 'allow': ['_q'] }],
         '@typescript-eslint/no-var-requires': 0,
         '@typescript-eslint/no-shadow': 2,
         '@typescript-eslint/no-unused-vars': [1, { argsIgnorePattern: '^_' }],
         '@typescript-eslint/no-empty-interface': 0,
-        
-        "vue/html-indent": [1, 4],
+
+        'vue/html-indent': [1, 4],
+        'vue/multi-word-component-names': 0,
 
         'capitalized-comments': 0,
         'multiline-comment-style': 0,
-        'no-underscore-dangle': 0,
+        'no-underscore-dangle': [2, { 'allow': ['_q'] }],
         'no-inline-comments': 0,
         'line-comment-position': 0,
         'multiline-ternary': [2, 'always-multiline'],
@@ -74,7 +73,6 @@ module.exports = {
         'no-magic-numbers': 0,
         'sort-keys': 0,
         'object-property-newline': 0,
-        'no-console': ['error', { allow: ['warn', 'error'] }],
         'object-curly-spacing': [2, 'always'],
         'no-use-before-define': [0, { functions: false, classes: true }],
         'no-shadow': 0,
@@ -96,10 +94,10 @@ module.exports = {
         'array-element-newline': [1, 'consistent'],
         'no-process-env': 0,
         'no-negated-condition': 0,
-        
+
         'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
         'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    
+
     },
 
     globals: {
