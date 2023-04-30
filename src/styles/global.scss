@@ -13,6 +13,7 @@
     --dark-color: #111;
     --correct-color: #315C2B;
     --incorrect-color: #FE4A49;
+    --focus-color: coral;
 
     --sp-1: .2rem;
     --sp-2: .7rem;
@@ -46,7 +47,7 @@
 
 @media screen and (min-width: 1080px) {
     :root {
-        --cols: 4;
+        --cols: 3;
         --fs: 1.2rem;
     }
 }
@@ -61,7 +62,7 @@ html {
     text-transform: uppercase;
     cursor: pointer;
     background: var(--primary-color);
-    font-size: var(--sp-4);
+    font-size: var(--fs-lg);
     padding: var(--sp-3) var(--sp-3);
     color: var(--light-color);
     text-decoration: none;
@@ -105,33 +106,6 @@ html {
     margin: var(--sp-4) 0;
 }
 
-
-
-.select {
-    padding: var(--sp-2);
-    display: flex;
-
-    label {
-        --outline-width: 2px;
-        width: 100%;
-        outline: var(--outline-width) solid var(--primary-color);
-        padding: var(--sp-2);
-        cursor: pointer;
-        text-align: center;
-        transition: 100ms;
-        border-radius: 1rem;
-    }
-
-
-    label.checked  {
-        --outline-width: 8px;
-    }
-
-    input {
-        display: none;
-    }
-}
-
 .loading {
     position: relative;
 
@@ -166,4 +140,8 @@ html {
     100% {
         transform: translate(-40px, 0px);
     }
+}
+
+*:focus {
+    outline: 2px solid var(--focus-color);
 }
