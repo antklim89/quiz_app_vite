@@ -21,33 +21,39 @@
                 >
             </div>
         </div>
-        <div class="button-container">
-            <button
-                class="button"
-                :class="{loading: loading}"
-                :disabled="loading"
-                @click="startQuiz"
-            >
-                Start New
-            </button>
-            <router-link
-                v-if="store.getters.hasQuestions"
-                class="button"
-                :class="{loading: loading}"
-                :disabled="loading"
-                :to="{name: 'Question', params: { id: 1 }}"
-            >
-                Continue
-            </router-link>
-            <router-link
-                v-if="store.getters.allQuestionsAnswered"
-                class="button"
-                :class="{loading: loading}"
-                :disabled="loading"
-                :to="{name: 'Result'}"
-            >
-                Show Results
-            </router-link>
+        <div class="button-group">
+            <div>
+                <button
+                    class="button"
+                    :class="{loading: loading}"
+                    :disabled="loading"
+                    @click="startQuiz"
+                >
+                    Start New
+                </button>
+            </div>
+            <div>
+                <router-link
+                    v-if="store.getters.hasQuestions"
+                    class="button"
+                    :class="{loading: loading}"
+                    :disabled="loading"
+                    :to="{name: 'Question', params: { id: 1 }}"
+                >
+                    Continue
+                </router-link>
+            </div>
+            <div>
+                <router-link
+                    v-if="store.getters.allQuestionsAnswered"
+                    class="button"
+                    :class="{loading: loading}"
+                    :disabled="loading"
+                    :to="{name: 'Result'}"
+                >
+                    Show Results
+                </router-link>
+            </div>
         </div>
     </div>
 </template>
@@ -73,9 +79,7 @@ const startQuiz = async () => {
         await store.dispatch('fetchQuestions');
         push({ name: 'Question', params: { id: 1 } });
     } catch (error) {
-        if (error instanceof Error) {
-            errorMessage.value = error.message;
-        }
+        if (error instanceof Error) errorMessage.value = error.message;
     } finally {
         loading.value = false;
     }
@@ -88,22 +92,6 @@ const handleSelectCategory = (value: string) => {
 </script>
 
 <style lang="scss" scoped>
-.button-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin: var(--sp-5) var(--sp-1);
-
-    .button {
-        text-align: center;
-        font-size: var(--fs-xl);
-        border-radius: 0.5rem;
-        padding: var(--sp-1) var(--sp-4);
-        margin: var(--sp-2);
-    }
-}
-
 .categories {
     display: grid;
     grid-template-columns: repeat(var(--cols), 1fr);

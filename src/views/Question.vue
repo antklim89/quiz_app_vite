@@ -33,35 +33,39 @@
                 </div>
             </div>
         </div>
-        <div class="actions">
-            <router-link
-                v-if="store.getters.hasPrevQuestion"
-                :to="{name: 'Question', params: { id: Number($route.params.id) - 1 }}"
-                class="button actions__item"
-            >
-                Previous Question
-            </router-link>
-            <router-link
-                v-else
-                :to="{ name: 'Home' }"
-                class="button actions__item"
-            >
-                Go Home
-            </router-link>
-            <router-link
-                v-if="store.getters.hasNextQuestion && store.getters.hasSelectedAnswer"
-                :to="{name: 'Question', params: { id: Number($route.params.id) + 1 }}"
-                class="button actions__item"
-            >
-                Next Question
-            </router-link>
-            <router-link
-                v-else-if="!store.getters.hasNextQuestion && store.getters.hasSelectedAnswer"
-                :to="{ name: 'Result' }"
-                class="button actions__item"
-            >
-                Show Results
-            </router-link>
+        <div class="button-group">
+            <div>
+                <router-link
+                    v-if="store.getters.hasPrevQuestion"
+                    :to="{name: 'Question', params: { id: Number($route.params.id) - 1 }}"
+                    class="button actions__item"
+                >
+                    Previous
+                </router-link>
+                <router-link
+                    v-else
+                    :to="{ name: 'Home' }"
+                    class="button actions__item"
+                >
+                    Home
+                </router-link>
+            </div>
+            <div>
+                <router-link
+                    v-if="store.getters.hasNextQuestion && store.getters.hasSelectedAnswer"
+                    :to="{name: 'Question', params: { id: Number($route.params.id) + 1 }}"
+                    class="button actions__item"
+                >
+                    Next
+                </router-link>
+                <router-link
+                    v-else-if="!store.getters.hasNextQuestion && store.getters.hasSelectedAnswer"
+                    :to="{ name: 'Result' }"
+                    class="button actions__item"
+                >
+                    Show Results
+                </router-link>
+            </div>
         </div>
     </div>
     <div
@@ -73,7 +77,7 @@
             class="button"
             :to="{name: 'Home'}"
         >
-            Go Home
+            Home
         </router-link>
     </div>
 </template>
@@ -126,15 +130,6 @@ const handleChange = (e: Event) => {
     .answers {
         display: grid;
         grid-template-columns: repeat(var(--cols), 1fr);
-    }
-    .actions {
-        display: flex;
-        justify-content: space-around;
-        margin-top: var(--sp-5);
-
-        &__item {
-            margin: 0 var(--sp-2);
-        }
     }
     .no-question {
         display: flex;
