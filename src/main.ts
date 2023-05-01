@@ -1,13 +1,13 @@
-import { createApp } from 'vue'
+import { createApp } from 'vue';
 
-import App from './App.vue'
-import router from './router'
-import { store } from './store'
+import App from './App.vue';
+import router from './router';
+import { store } from './store';
 
-import './styles/global.scss'
+import './styles/global.scss';
 
 
 createApp(App)
     .use(store)
     .use(router)
-    .mount('#app')
+    .mount('#app');

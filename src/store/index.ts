@@ -6,6 +6,39 @@ import { IQuestion, AnswerLetters, QuestionResponse } from '@/types';
 import { transformQuestions } from '@/utils';
 
 
+interface State {
+    questions: IQuestion[]
+    questionNumber: number
+    selectedCategory: string
+}
+
+interface Result {
+    id: number;
+    question: string;
+    explanation: string;
+    category: string;
+    difficulty: string;
+    isCorrect: boolean;
+    correctAnswers: string[];
+    selectedAnswer: string[];
+}
+
+interface Store extends Omit<BaseStore<State>, 'getters'> {
+    getters: {
+        currentQuestion: IQuestion | null
+        hasQuestions: boolean
+        hasSelectedAnswer: boolean
+        allQuestionsAnswered: boolean
+        hasNextQuestion: boolean
+        hasPrevQuestion: boolean
+        filtredAnswers:[AnswerLetters, string][]
+        results: Result[]
+        allQuestionsAnsweredCorrect: boolean
+        numberCorrectAnsweres: boolean
+        numberWrongAnsweres: boolean
+    }
+}
+
 export const store = createStore<State>({
     state: () => ({
         questions: [],
@@ -107,39 +140,5 @@ export const store = createStore<State>({
         },
     },
 });
-
-
-interface State {
-    questions: IQuestion[]
-    questionNumber: number
-    selectedCategory: string
-}
-
-interface Result {
-    id: number;
-    question: string;
-    explanation: string;
-    category: string;
-    difficulty: string;
-    isCorrect: boolean;
-    correctAnswers: string[];
-    selectedAnswer: string[];
-}
-
-interface Store extends Omit<BaseStore<State>, 'getters'> {
-    getters: {
-        currentQuestion: IQuestion | null
-        hasQuestions: boolean
-        hasSelectedAnswer: boolean
-        allQuestionsAnswered: boolean
-        hasNextQuestion: boolean
-        hasPrevQuestion: boolean
-        filtredAnswers:[AnswerLetters, string][]
-        results: Result[]
-        allQuestionsAnsweredCorrect: boolean
-        numberCorrectAnsweres: boolean
-        numberWrongAnsweres: boolean
-    }
-}
 
 export const useStore = (): Store => baseUseStore();
