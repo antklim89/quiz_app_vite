@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 *, *:after, *:before {
     font-family: serif;
     margin: 0;
@@ -27,7 +31,7 @@
     --fs-sm: var(--fs) * 0.5;
     --fs: .8rem;
     --fs-lg: calc(var(--fs) * 1.2);
-    --fs-xl: calc(var(--fs) * 3);
+    --fs-xl: calc(var(--fs) * 2);
 }
 
 
@@ -142,6 +146,6 @@ html {
     }
 }
 
-*:focus {
+:focus {
     outline: 2px solid var(--focus-color);
 }

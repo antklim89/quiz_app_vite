@@ -1,27 +1,71 @@
+<script lang="ts" setup>
+import { watch } from 'vue';
+import { useRoute } from 'vue-router';
+
+import { useStore } from '../store';
+import { AnswerLetters } from '../types';
+
+
+const store = useStore();
+const route = useRoute();
+
+store.commit('setQuestionNumber', route.params.id);
+watch(route, ({ params }) => {
+    store.commit('setQuestionNumber', params.id);
+});
+
+
+const handleChange = (e: Event) => {
+    const question = store.getters.currentQuestion;
+
+    if (!question) return;
+    const target = e.target as HTMLInputElement;
+    const selectedAnswerName = target.name as AnswerLetters;
+    const { checked } = target;
+
+    if (question.multipleCorrectAnswers) {
+        question.selectedAnswers[selectedAnswerName] = checked;
+    } else {
+        Object.keys(question.selectedAnswers).forEach((key) => {
+
+            const answerKey = key as AnswerLetters;
+            if (answerKey === selectedAnswerName) {
+                question.selectedAnswers[answerKey] = true;
+            } else {
+                question.selectedAnswers[answerKey] = false;
+            }
+        });
+    }
+};
+</script>
+
 <template>
     <div
         v-if="store.getters.currentQuestion"
         class="container"
     >
-        <h1 class="title">
+        <h1 class="text-center text-5xl mt-5">
             Question &#8470;{{ $route.params.id }}
         </h1>
+        <h2 class="text-center text-2xl">
+            in the {{ store.getters.currentQuestion.category }} category
+        </h2>
         <div>
-            <h2 class="question">
+            <p class="text-xl my-6">
                 {{ store.getters.currentQuestion.question }}
-            </h2>
-            <b>Category: {{ store.getters.currentQuestion.category }}</b>
-            <div class="answers">
+            </p>
+            <div class="flex flex-col text-md">
                 <div
                     v-for="[name, answer] in store.getters.filtredAnswers"
                     :key="answer"
-                    class="select"
+                    class="mb-4"
                 >
                     <input
                         v-if="store.getters.currentQuestion"
                         :id="name"
                         type="checkbox"
                         :name="name"
+                        class="w-0 h-0 outline-none"
                         @input="handleChange"
                     >
                     <label
@@ -70,7 +114,7 @@
     </div>
     <div
         v-else
-        class="no-question"
+        class="flex justify-center flex-col"
     >
         <h1>Question not found</h1>
         <router-link
@@ -82,58 +126,8 @@
     </div>
 </template>
 
-
-<script lang="ts" setup>
-import { watch } from 'vue';
-import { useRoute } from 'vue-router';
-
-import { useStore } from '../store';
-import { AnswerLetters } from '../types';
-
-
-const store = useStore();
-const route = useRoute();
-
-store.commit('setQuestionNumber', route.params.id);
-watch(route, ({ params }) => {
-    store.commit('setQuestionNumber', params.id);
-});
-
-
-const handleChange = (e: Event) => {
-    const question = store.getters.currentQuestion;
-
-    if (!question) return;
-    const target = e.target as HTMLInputElement;
-    const selectedAnswerName = target.name as AnswerLetters;
-    const { checked } = target;
-
-    if (question.multipleCorrectAnswers) {
-        question.selectedAnswers[selectedAnswerName] = checked;
-    } else {
-        Object.keys(question.selectedAnswers).forEach((key) => {
-            const answerKey = key as AnswerLetters;
-            if (answerKey === selectedAnswerName) {
-                question.selectedAnswers[answerKey] = true;
-            } else {
-                question.selectedAnswers[answerKey] = false;
-            }
-        });
-    }
-};
-</script>
-
-<style lang="scss" scoped>
-    .question {
-        margin-bottom: var(--sp-2);
-    }
-    .answers {
-        display: grid;
-        grid-template-columns: repeat(var(--cols), 1fr);
-    }
-    .no-question {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
+<style>
+.checked {
+    @apply text-purple-700
+}
 </style>
