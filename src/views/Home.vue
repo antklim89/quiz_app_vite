@@ -1,10 +1,10 @@
 <template>
     <div class="container">
-        <div class="categories">
+        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
             <div
                 v-for="category in CATEGORIES"
                 :key="category"
-                class="category"
+                class="category flex"
             >
                 <input
                     :id="category"
@@ -14,6 +14,7 @@
                     @input="handleSelectCategory(category)"
                 >
                 <label
+                    class="text-lg uppercase w-full shadow p-4 cursor-pointer text-center transition rounded-full"
                     :for="category"
                     :class="{checked: store.state.selectedCategory === category}"
                 >
@@ -91,51 +92,16 @@ const handleSelectCategory = (value: string) => {
 
 </script>
 
-<style lang="scss" scoped>
-.categories {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: var(--sp-2);
-
-    @media screen and (min-width: 480px) {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    @media screen and (min-width: 1080px) {
-        grid-template-columns: repeat(3, 1fr);
-    }
+<style scoped>
+.category input:checked + label {
+    @apply outline outline-2 outline-purple-600;
 }
 
-.category {
-    padding: var(--sp-2);
-    display: flex;
+.category input:focus + label  {
+    @apply outline outline-2 outline-orange-600;
+}
 
-    label {
-        --outline-width: 2px;
-        font-size: var(--fs-lg);
-        text-transform: uppercase;
-        width: 100%;
-        box-shadow: 0 0 0px var(--outline-width) var(--primary-color);
-        padding: var(--sp-2);
-        cursor: pointer;
-        text-align: center;
-        transition: 100ms;
-        border-radius: 9999px;
-    }
-
-    input:focus + label  {
-        outline: 2px solid var(--focus-color);
-        outline-offset: -2px;
-    }
-
-    input:checked + label {
-        --outline-width: 8px;
-    }
-
-    input {
-        outline: none;
-        width: 0;
-        height: 0;
-    }
+.category input {
+    @apply w-0 h-0 outline-none;
 }
 </style>
