@@ -22,7 +22,7 @@
                 </label>
             </div>
         </div>
-        <div class="button-group">
+        <div class="button-group md:grid-cols-3">
             <div>
                 <router-link
                     v-if="store.getters.hasQuestions"
@@ -94,7 +94,7 @@ const handleSelectCategory = (value: string) => {
 
 <style scoped>
 .category input:checked + label {
-    @apply outline outline-2 outline-purple-600;
+    @apply outline outline-2 outline-primary-600;
 }
 
 .category input:focus + label  {

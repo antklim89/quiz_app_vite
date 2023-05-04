@@ -58,7 +58,7 @@ const handleChange = (e: Event) => {
                 <div
                     v-for="[name, answer] in store.getters.filtredAnswers"
                     :key="answer"
-                    class="mb-4"
+                    class=""
                 >
                     <input
                         v-if="store.getters.currentQuestion"
@@ -69,6 +69,7 @@ const handleChange = (e: Event) => {
                         @input="handleChange"
                     >
                     <label
+                        class="flex border-b px-2 cursor-pointer ml-2"
                         :for="name"
                         :class="{checked: store.getters.currentQuestion.selectedAnswers[name]}"
                     >
@@ -77,19 +78,19 @@ const handleChange = (e: Event) => {
                 </div>
             </div>
         </div>
-        <div class="button-group">
+        <div class="button-group sm:grid-cols-2">
             <div>
                 <router-link
                     v-if="store.getters.hasPrevQuestion"
                     :to="{name: 'Question', params: { id: Number($route.params.id) - 1 }}"
-                    class="button actions__item"
+                    class="button"
                 >
                     Previous
                 </router-link>
                 <router-link
                     v-else
                     :to="{ name: 'Home' }"
-                    class="button actions__item"
+                    class="button"
                 >
                     Home
                 </router-link>
@@ -98,14 +99,14 @@ const handleChange = (e: Event) => {
                 <router-link
                     v-if="store.getters.hasNextQuestion && store.getters.hasSelectedAnswer"
                     :to="{name: 'Question', params: { id: Number($route.params.id) + 1 }}"
-                    class="button actions__item"
+                    class="button"
                 >
                     Next
                 </router-link>
                 <router-link
                     v-else-if="!store.getters.hasNextQuestion && store.getters.hasSelectedAnswer"
                     :to="{ name: 'Result' }"
-                    class="button actions__item"
+                    class="button"
                 >
                     Show Results
                 </router-link>
@@ -128,6 +129,6 @@ const handleChange = (e: Event) => {
 
 <style>
 .checked {
-    @apply text-purple-700
+    @apply text-primary-600 border-primary-600
 }
 </style>

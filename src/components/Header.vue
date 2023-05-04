@@ -1,13 +1,13 @@
 <template>
-    <header class="container">
+    <header class="container flex justify-between mb-6">
         <router-link
-            class="logo"
+            class="text-primary-600"
             :to="{name: 'Home'}"
         >
             <Logo />
         </router-link>
         <router-link
-            class="link"
+            class="no-underline py-3 self-start text-primary-600"
             :to="{name: 'About'}"
         >
             About
@@ -18,17 +18,3 @@
 <script setup lang="ts">
 import Logo from './Logo.vue';
 </script>
-
-<style lang="scss" scoped>
-    header {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: var(--sp-5);
-    }
-
-    .link {
-        text-decoration: none;
-        padding: .7rem 0;
-        align-self: flex-start;
-    }
-</style>
