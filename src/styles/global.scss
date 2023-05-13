@@ -9,10 +9,6 @@
     box-sizing: border-box;
 }
 
-:focus {
-    @apply outline outline-2 outline-orange-500;
-}
-
 .button {
     @apply flex justify-center uppercase cursor-pointer bg-primary-600 text-lg p-5
     text-white no-underline rounded-md border border-solid border-primary-600;
