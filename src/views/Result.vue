@@ -1,3 +1,10 @@
+<script lang="ts" setup>
+import { useStore } from '../store';
+
+
+const store = useStore();
+</script>
+
 <template>
     <section
         v-if="store.getters.allQuestionsAnswered"
@@ -83,15 +90,6 @@
         </router-link>
     </section>
 </template>
-
-
-<script lang="ts" setup>
-import { useStore } from '../store';
-
-
-const store = useStore();
-
-</script>
 
 <style lang="scss" scoped>
 .conclusion {

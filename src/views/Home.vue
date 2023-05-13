@@ -1,3 +1,36 @@
+<script lang="ts" setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+import { CATEGORIES } from '@/constants';
+import { useStore } from '@/store';
+
+
+const store = useStore();
+const loading = ref(false);
+const errorMessage = ref<string|null>(null);
+
+const { push } = useRouter();
+
+const startQuiz = async () => {
+    loading.value = true;
+    errorMessage.value = null;
+    try {
+        await store.dispatch('fetchQuestions', null);
+        push({ name: 'Question', params: { id: 1 } });
+    } catch (error) {
+        if (error instanceof Error) errorMessage.value = error.message;
+    } finally {
+        loading.value = false;
+    }
+};
+
+const handleSelectCategory = (value: string) => {
+    store.commit('setSelectedCategory', value);
+};
+
+</script>
+
 <template>
     <div class="container">
         <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
@@ -58,39 +91,6 @@
         </div>
     </div>
 </template>
-
-<script lang="ts" setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-
-import { CATEGORIES } from '@/constants';
-import { useStore } from '@/store';
-
-
-const store = useStore();
-const loading = ref(false);
-const errorMessage = ref<string|null>(null);
-
-const { push } = useRouter();
-
-const startQuiz = async () => {
-    loading.value = true;
-    errorMessage.value = null;
-    try {
-        await store.dispatch('fetchQuestions');
-        push({ name: 'Question', params: { id: 1 } });
-    } catch (error) {
-        if (error instanceof Error) errorMessage.value = error.message;
-    } finally {
-        loading.value = false;
-    }
-};
-
-const handleSelectCategory = (value: string) => {
-    store.commit('setSelectedCategory', value);
-};
-
-</script>
 
 <style scoped>
 .category input:checked + label {
