@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import Logo from './Logo.vue';
+</script>
+
 <template>
     <header class="container flex justify-between mb-6">
         <router-link
@@ -14,7 +18,3 @@
         </router-link>
     </header>
 </template>
-
-<script setup lang="ts">
-import Logo from './Logo.vue';
-</script>

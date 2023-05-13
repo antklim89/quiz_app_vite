@@ -2,8 +2,8 @@
 import { watch } from 'vue';
 import { useRoute } from 'vue-router';
 
-import { useStore } from '../store';
-import { AnswerLetters } from '../types';
+import { useStore } from '@/store';
+import { AnswerLetters } from '@/types';
 
 
 const store = useStore();
@@ -15,25 +15,17 @@ watch(route, ({ params }) => {
 });
 
 
-const handleChange = (e: Event) => {
+const handleChange = (name: AnswerLetters) => {
     const question = store.getters.currentQuestion;
-
     if (!question) return;
-    const target = e.target as HTMLInputElement;
-    const selectedAnswerName = target.name as AnswerLetters;
-    const { checked } = target;
+
+    const isSelectedAnswer = question.selectedAnswers[name];
 
     if (question.multipleCorrectAnswers) {
-        question.selectedAnswers[selectedAnswerName] = checked;
+        question.selectedAnswers[name] = !isSelectedAnswer;
     } else {
         Object.keys(question.selectedAnswers).forEach((key) => {
-
-            const answerKey = key as AnswerLetters;
-            if (answerKey === selectedAnswerName) {
-                question.selectedAnswers[answerKey] = true;
-            } else {
-                question.selectedAnswers[answerKey] = false;
-            }
+            question.selectedAnswers[key as AnswerLetters] = (key === name);
         });
     }
 };
@@ -58,39 +50,32 @@ const handleChange = (e: Event) => {
                 <div
                     v-for="[name, answer] in store.getters.filtredAnswers"
                     :key="answer"
-                    class=""
+                    class="mb-4"
                 >
-                    <input
-                        v-if="store.getters.currentQuestion"
-                        :id="name"
-                        type="checkbox"
+                    <button
                         :name="name"
-                        class="w-0 h-0 outline-none"
-                        @input="handleChange"
-                    >
-                    <label
-                        class="flex border-b px-2 cursor-pointer ml-2"
-                        :for="name"
+                        class="border-b w-full"
                         :class="{checked: store.getters.currentQuestion.selectedAnswers[name]}"
+                        @click="handleChange(name)"
                     >
                         {{ answer }}
-                    </label>
+                    </button>
                 </div>
             </div>
         </div>
-        <div class="button-group sm:grid-cols-2">
+        <div class="button-group">
             <div>
                 <router-link
                     v-if="store.getters.hasPrevQuestion"
                     :to="{name: 'Question', params: { id: Number($route.params.id) - 1 }}"
-                    class="button"
+                    class="button actions__item"
                 >
                     Previous
                 </router-link>
                 <router-link
                     v-else
                     :to="{ name: 'Home' }"
-                    class="button"
+                    class="button actions__item"
                 >
                     Home
                 </router-link>
@@ -99,14 +84,14 @@ const handleChange = (e: Event) => {
                 <router-link
                     v-if="store.getters.hasNextQuestion && store.getters.hasSelectedAnswer"
                     :to="{name: 'Question', params: { id: Number($route.params.id) + 1 }}"
-                    class="button"
+                    class="button actions__item"
                 >
                     Next
                 </router-link>
                 <router-link
                     v-else-if="!store.getters.hasNextQuestion && store.getters.hasSelectedAnswer"
                     :to="{ name: 'Result' }"
-                    class="button"
+                    class="button actions__item"
                 >
                     Show Results
                 </router-link>
@@ -129,6 +114,6 @@ const handleChange = (e: Event) => {
 
 <style>
 .checked {
-    @apply text-primary-600 border-primary-600
+    @apply text-purple-700 border-b-purple-700
 }
 </style>
