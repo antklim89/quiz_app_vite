@@ -36,46 +36,49 @@ const handleChange = (name: AnswerLetters) => {
         v-if="store.getters.currentQuestion"
         class="container"
     >
-        <h1 class="text-center text-5xl mt-5">
+        <h1 class="text-center text-7xl mt-5">
             Question &#8470;{{ $route.params.id }}
         </h1>
-        <h2 class="text-center text-2xl">
+        <h2 class="text-center text-4xl">
             in the {{ store.getters.currentQuestion.category }} category
         </h2>
         <div>
-            <p class="text-xl my-6">
+            <p class="text-2xl my-6">
                 {{ store.getters.currentQuestion.question }}
             </p>
             <div class="flex flex-col text-md">
                 <div
-                    v-for="[name, answer] in store.getters.filtredAnswers"
+                    v-for="[name, answer], index in store.getters.filtredAnswers"
                     :key="answer"
                     class="mb-4"
                 >
                     <button
+                        class="flex border-b w-full text-start p-2 pl-28 items-center"
                         :name="name"
-                        class="border-b w-full"
                         :class="{checked: store.getters.currentQuestion.selectedAnswers[name]}"
                         @click="handleChange(name)"
                     >
+                        <span class="flex mr-8 w-[32px] h-[32px] rounded-full items-center justify-center">
+                            {{ index + 1 }}
+                        </span>
                         {{ answer }}
                     </button>
                 </div>
             </div>
         </div>
-        <div class="button-group">
+        <div class="button-group grid-cols-2">
             <div>
                 <router-link
                     v-if="store.getters.hasPrevQuestion"
                     :to="{name: 'Question', params: { id: Number($route.params.id) - 1 }}"
-                    class="button actions__item"
+                    class="button"
                 >
                     Previous
                 </router-link>
                 <router-link
                     v-else
                     :to="{ name: 'Home' }"
-                    class="button actions__item"
+                    class="button"
                 >
                     Home
                 </router-link>
@@ -84,14 +87,14 @@ const handleChange = (name: AnswerLetters) => {
                 <router-link
                     v-if="store.getters.hasNextQuestion && store.getters.hasSelectedAnswer"
                     :to="{name: 'Question', params: { id: Number($route.params.id) + 1 }}"
-                    class="button actions__item"
+                    class="button"
                 >
                     Next
                 </router-link>
                 <router-link
                     v-else-if="!store.getters.hasNextQuestion && store.getters.hasSelectedAnswer"
                     :to="{ name: 'Result' }"
-                    class="button actions__item"
+                    class="button"
                 >
                     Show Results
                 </router-link>
@@ -112,8 +115,11 @@ const handleChange = (name: AnswerLetters) => {
     </div>
 </template>
 
-<style>
+<style scoped>
 .checked {
     @apply text-purple-700 border-b-purple-700
+}
+.checked span {
+    @apply  bg-purple-700 text-white
 }
 </style>

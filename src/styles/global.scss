@@ -19,7 +19,7 @@
 }
 
 .button-group {
-    @apply grid grid-cols-1 gap-2 my-3;
+    @apply grid gap-2 my-3;
 
     .button {
         width: 270px;
