@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { watch, onMounted, onUnmounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
 import { useStore } from '@/store';
 import { AnswerLetters } from '@/types';
@@ -8,8 +8,12 @@ import { AnswerLetters } from '@/types';
 
 const store = useStore();
 const route = useRoute();
+const router = useRouter();
 
-store.commit('setQuestionNumber', route.params.id);
+
+onMounted(() => {
+    store.commit('setQuestionNumber', route.params.id);
+});
 watch(route, ({ params }) => {
     store.commit('setQuestionNumber', params.id);
 });
@@ -29,6 +33,41 @@ const handleChange = (name: AnswerLetters) => {
         });
     }
 };
+
+const listener = ({ key }: KeyboardEvent) => {
+    const keysMap: Record<number, AnswerLetters|undefined> = {
+        1: 'a', 2: 'b', 3: 'c', 4: 'd', 5: 'd', 6: 'e', 7: 'f',
+    };
+    const numberKey = parseInt(key, 10);
+    if (!Number.isNaN(numberKey)) {
+        const question = store.getters.currentQuestion;
+        if (!question) return;
+        const questionLetter = keysMap[numberKey];
+        if (questionLetter) handleChange(questionLetter);
+    }
+    if (key === 'ArrowRight' || key === 'Enter') {
+        if (store.getters.hasNextQuestion && store.getters.hasSelectedAnswer) {
+            router.push({ name: 'Question', params: { id: store.state.questionNumber + 1 } });
+        } else if (!store.getters.hasNextQuestion && store.getters.hasSelectedAnswer) {
+            router.push({ name: 'Result' });
+        }
+    }
+    if (key === 'ArrowLeft' || key === 'Backspace') {
+        if (store.getters.hasPrevQuestion) {
+            router.push({ name: 'Question', params: { id: store.state.questionNumber - 1 } });
+        } else {
+            router.push({ name: 'Home' });
+        }
+    }
+};
+onMounted(() => {
+    window.addEventListener('keydown', listener);
+});
+
+onUnmounted(() => {
+    window.removeEventListener('keydown', listener);
+});
+
 </script>
 
 <template>
@@ -52,17 +91,21 @@ const handleChange = (name: AnswerLetters) => {
                     :key="answer"
                     class="mb-4"
                 >
-                    <button
-                        class="flex border-b w-full text-start p-2 pl-28 items-center"
-                        :name="name"
+                    <div
+                        class="flex items-center justify-center"
                         :class="{checked: store.getters.currentQuestion.selectedAnswers[name]}"
-                        @click="handleChange(name)"
                     >
-                        <span class="flex mr-8 w-[32px] h-[32px] rounded-full items-center justify-center">
+                        <span class="w-8 h-8 rounded-full flex items-center justify-center">
                             {{ index + 1 }}
                         </span>
-                        {{ answer }}
-                    </button>
+                        <button
+                            class="flex border-b w-full text-start p-2 pl-8 items-center"
+                            :name="name"
+                            @click="handleChange(name)"
+                        >
+                            {{ answer }}
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -116,7 +159,7 @@ const handleChange = (name: AnswerLetters) => {
 </template>
 
 <style scoped>
-.checked {
+.checked button {
     @apply text-purple-700 border-b-purple-700
 }
 .checked span {
