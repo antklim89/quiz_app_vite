@@ -39,20 +39,13 @@ const handleSelectCategory = (value: string) => {
                 :key="category"
                 class="category flex"
             >
-                <input
-                    :id="category"
-                    :checked="store.state.selectedCategory === category"
-                    type="radio"
-                    name="category"
-                    @input="handleSelectCategory(category)"
-                >
-                <label
-                    class="text-lg uppercase w-full shadow p-4 cursor-pointer text-center transition rounded-full"
-                    :for="category"
+                <button
                     :class="{checked: store.state.selectedCategory === category}"
+                    class="text-lg uppercase w-full shadow p-4 cursor-pointer text-center transition rounded-full"
+                    @click="handleSelectCategory(category)"
                 >
                     {{ category }}
-                </label>
+                </button>
             </div>
         </div>
         <div class="button-group md:grid-cols-3">
@@ -93,15 +86,7 @@ const handleSelectCategory = (value: string) => {
 </template>
 
 <style scoped>
-.category input:checked + label {
+.category button.checked {
     @apply outline outline-2 outline-primary-600;
-}
-
-.category input:focus + label  {
-    @apply outline outline-2 outline-orange-600;
-}
-
-.category input {
-    @apply w-0 h-0 outline-none;
 }
 </style>
