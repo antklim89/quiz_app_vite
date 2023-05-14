@@ -3,6 +3,7 @@ import { useStore } from '../store';
 
 
 const store = useStore();
+const category = store.getters.currentQuestion?.category;
 </script>
 
 <template>
@@ -11,59 +12,58 @@ const store = useStore();
         class="container"
     >
         <h1 class="title">
-            Results
+            Results in category {{ category }}.
         </h1>
         <p
             v-if="store.getters.allQuestionsAnsweredCorrect"
-            class="conclusion"
+            class="text-2xl text-center mb-4 text-green-600"
         >
-            You answered all {{ store.state.questions.length }} questions correctly.
+            You answered all
+            <span class="font-bold text-3xl">{{ store.state.questions.length }}</span>
+            questions correctly.
         </p>
         <p
             v-else
-            class="conclusion"
+            class="text-2xl text-center mb-4 text-red-600"
         >
-            You answered {{ store.getters.numberWrongAnsweres }} questions incorrectly.
+            You answered
+            <span class="font-bold text-3xl">{{ store.getters.numberWrongAnsweres }}</span>
+            questions incorrectly.
         </p>
-        <div class="results">
-            <div
+        <div class="flex flex-col space-y-4">
+            <router-link
                 v-for="result, index in store.getters.results"
                 :key="result.id"
-                class="result"
+                :to="{name: 'Question', params: { id: index + 1 }}"
+                class=" p-4 bg-opacity-25"
+                :class="{'bg-green-200': result.isCorrect, 'bg-red-200': !result.isCorrect}"
             >
-                <h2 class="result__title">
-                    {{ index + 1 }}.
-                    {{ result.question }}
+                <h2 class="text-2xl mb-2">
+                    {{ index + 1 }}. {{ result.question }}
                 </h2>
-                <div>
-                    <b>Difficulty: {{ result.difficulty }}. </b>
-                    <b>Category: {{ result.category }}. </b>
-                </div>
-                <p
-                    class="result__answer"
-                    :class="{correct: result.isCorrect}"
-                >
-                    <span>
-                        Your
-                        {{ result.selectedAnswer.length === 1 ? 'answer' : 'answers' }}
-                        {{ result.selectedAnswer.map((i) => `"${i}"`).join(', ') }}
-                        {{ result.selectedAnswer.length === 1 ? 'is' : 'are' }}
-                        {{ result.isCorrect ? '' : 'not' }}
-                        correct.
-                    </span>
-                    <span v-if="!result.isCorrect">
-                        Correct
-                        {{ result.correctAnswers.length === 1 ? 'answer is' : 'answers are' }}
-                        {{ result.correctAnswers.map((i) => `"${i}"`).join(', ') }}
-                        .
-                    </span>
+                <p class="mb-2 text-lg">
+                    Your
+                    {{ result.selectedAnswer.length === 1 ? 'answer' : 'answers' }}
+                    {{ result.selectedAnswer.map((i) => `"${i}"`).join(', ') }}
+                    {{ result.selectedAnswer.length === 1 ? 'is' : 'are' }}
+                    {{ result.isCorrect ? '' : 'not' }}
+                    correct.
                 </p>
-                <p class="result__explanation">
+                <p
+                    v-if="!result.isCorrect"
+                    class="mb-2 text-lg"
+                >
+                    Correct
+                    {{ result.correctAnswers.length === 1 ? 'answer is' : 'answers are' }}
+                    {{ result.correctAnswers.map((i) => `"${i}"`).join(', ') }}
+                    .
+                </p>
+                <p class="mb-2 text-lg">
                     {{ result.explanation }}
                 </p>
-            </div>
+            </router-link>
         </div>
-        <div class="footer">
+        <div class="flex justify-center my-8">
             <router-link
                 class="button"
                 :to="{name: 'Home'}"
@@ -79,7 +79,7 @@ const store = useStore();
         <h1 class="title">
             Results
         </h1>
-        <div class="conclusion">
+        <div>
             Not all questions answered.
         </div>
         <router-link
@@ -92,40 +92,4 @@ const store = useStore();
 </template>
 
 <style lang="scss" scoped>
-.conclusion {
-    font-size: var(--fs-lg);
-    color: var(--primary-color);
-    margin-bottom: var(--sp-5);
-    text-align: center;
-}
-
-.results {
-    display: flex;
-    flex-direction: column;
-}
-
-.result {
-    padding: var(--sp-2);
-    margin-bottom: var(--sp-1);
-
-    &__title {
-        color: var(--primary-color);
-    }
-
-    &__answer {
-        margin: var(--sp-2) 0;
-        font-size: var(--fs-lg);
-        color: var(--incorrect-color);
-
-        &.correct {
-            color: var(--correct-color);
-        }
-    }
-}
-
-.footer {
-    display: flex;
-    justify-content: center;
-    margin: var(--sp-4) 0;
-}
 </style>
